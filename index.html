@@ -114,6 +114,7 @@
         <button data-keywords="marco legal aviso leyes reales decretos ordenes de defensa exencion contacto omi telefono correo consultas" onclick="abrirPantalla('pantalla_legal')" class="menu-btn w-full text-left bg-gray-700 p-4 rounded font-bold uppercase shadow-md border-l-4 border-white flex justify-between items-center mt-6 active:scale-[0.98] transition-transform"><span>Marco Legal y Aviso</span><span class="text-white">❯</span></button>
     </div>
     <p id="msgSinResultados" class="hidden text-center text-tactical-orange font-bold mt-6 bg-gray-800 p-4 rounded">Ningún apartado coincide con la búsqueda.</p>
+    <p id="versionApp" class="hidden text-center text-xs text-gray-400 mt-6"></p>
 </main>
 
 <!-- ==================== PANTALLAS DE DETALLE ==================== -->
@@ -1580,7 +1581,24 @@
     function registrarServiceWorker() {
         if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
             navigator.serviceWorker.register('sw.js').catch(function () {});
+            // Al instalarse una versión nueva, se actualiza el texto de la versión
+            navigator.serviceWorker.addEventListener('controllerchange', mostrarVersion);
         }
+        mostrarVersion();
+    }
+
+    // Muestra al pie del menú la versión que el móvil tiene guardada (nombre de la caché de sw.js)
+    function mostrarVersion() {
+        if (!('caches' in window)) return;
+        caches.keys().then(function (claves) {
+            const version = claves.filter(k => k.indexOf('conciliacion-aj-') === 0)
+                .map(k => k.replace('conciliacion-aj-', ''))
+                .sort((a, b) => parseInt(b.slice(1), 10) - parseInt(a.slice(1), 10))[0];
+            const el = document.getElementById('versionApp');
+            if (!version) { el.classList.add('hidden'); return; }
+            el.textContent = 'Versión ' + version;
+            el.classList.remove('hidden');
+        }).catch(function () {});
     }
 
     window.addEventListener('resize', ajustarAlturaCabecera);
