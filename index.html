@@ -8,6 +8,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="Conciliación AJ">
+    <!-- Seguridad: solo se cargan recursos de este mismo sitio (GitHub Pages no permite cabeceras) -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
     <link rel="manifest" href="manifest.webmanifest">
     <link rel="icon" href="icon-192.png">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -1414,7 +1416,13 @@
     let descansoActual = null; // lo último calculado, listo para añadir al contador
 
     function leerDescansos() {
-        try { const d = JSON.parse(leerAlmacen(CLAVE_DESCANSOS) || '[]'); return Array.isArray(d) ? d : []; }
+        try {
+            const d = JSON.parse(leerAlmacen(CLAVE_DESCANSOS) || '[]');
+            // Se descartan registros dañados o desconocidos para que el contador no falle
+            return Array.isArray(d) ? d.filter(r => r && typeof r === 'object'
+                && Number.isFinite(r.id) && Number.isInteger(r.anio)
+                && Object.prototype.hasOwnProperty.call(TIPOS_DESCANSO, r.tipo)) : [];
+        }
         catch (e) { return []; }
     }
     function guardarDescansos(lista) { guardarAlmacen(CLAVE_DESCANSOS, JSON.stringify(lista)); }
