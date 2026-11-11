@@ -44,6 +44,13 @@
         .calc-fila { display: flex; justify-content: space-between; gap: 0.75rem; font-size: 0.8rem; padding: 0.3rem 0; border-bottom: 1px solid #3f3d6b; }
         .calc-fila strong { text-align: right; color: #fff; }
         .calc-enlace { margin-top: 0.75rem; width: 100%; background: #ff8c00; color: #000; font-weight: bold; padding: 0.5rem; border-radius: 4px; font-size: 0.8rem; }
+        .cd-anio { color: #000; font-weight: bold; font-size: 0.8rem; padding: 0.2rem 0.4rem; border-radius: 4px; background: #fff; }
+        .cd-barra { height: 8px; background: #1a1a2e; border-radius: 4px; overflow: hidden; margin-top: 0.25rem; }
+        .cd-barra div { height: 100%; background: #ff8c00; transition: width 0.2s; }
+        .cd-barra div.cd-lleno { background: #f87171; }
+        .cd-tope { display: flex; justify-content: space-between; font-size: 0.8rem; margin-top: 0.75rem; }
+        .cd-registro { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; font-size: 0.75rem; padding: 0.35rem 0; border-bottom: 1px solid #3f3d6b; }
+        .cd-borrar { background: #4a5568; color: #fff; border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.75rem; flex-shrink: 0; }
         .menu-coincidencia { font-size: 0.7rem; color: #cbd5e0; font-weight: normal; text-transform: none; display: block; margin-top: 2px; }
     </style>
 </head>
@@ -88,7 +95,7 @@
 <!-- MENÚ PRINCIPAL -->
 <main id="menuPrincipal" class="p-4 fade-in">
     <div class="space-y-3" id="listaMenu">
-        <button data-keywords="calculadoras calcular dias permiso fallecimiento enfermedad grave hospitalizacion nacimiento adopcion fechas semanas lactancia acumulada jornadas" onclick="abrirPantalla('pantalla_calc')" class="menu-btn w-full text-left bg-gray-800 p-4 rounded font-bold uppercase shadow-md border-2 border-orange-500 flex justify-between items-center active:scale-[0.98] transition-transform"><span>🧮 Calculadoras de Permisos</span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="calculadoras calcular dias permiso fallecimiento enfermedad grave hospitalizacion nacimiento adopcion fechas semanas lactancia acumulada jornadas descansos guardias jic do da dpp tope 10 dias contador actividades preparacion" onclick="abrirPantalla('pantalla_calc')" class="menu-btn w-full text-left bg-gray-800 p-4 rounded font-bold uppercase shadow-md border-2 border-orange-500 flex justify-between items-center active:scale-[0.98] transition-transform"><span>🧮 Calculadoras de Permisos</span><span class="text-tactical-orange">❯</span></button>
         <button data-keywords="consideraciones generales necesidades servicio silencio administrativo vacaciones permisos reducciones licencias recursos computo" onclick="abrirPantalla('pantalla1')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>1. Consideraciones Generales</span><span class="text-tactical-orange">❯</span></button>
         <button data-keywords="vacaciones dias anuales antiguedad trienios aplazamiento interrupcion verano estival incapacidad baja extranjero compensacion" onclick="abrirPantalla('pantalla2')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>2. Vacaciones</span><span class="text-tactical-orange">❯</span></button>
         <button data-keywords="permisos asuntos particulares propios moscosos accidente enfermedad grave cirugia fallecimiento traslado mudanza deber inexcusable" onclick="abrirPantalla('pantalla3')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>3. Permisos Generales</span><span class="text-tactical-orange">❯</span></button>
@@ -661,6 +668,7 @@
         </div>
 
         <p class="text-xs text-gray-400 mt-2">Fuente: Anexo I, Orientaciones para la aplicación en el Ejército de Tierra de la Orden DEF 1363/2016, en lo relativo a jornadas y horario de trabajo en las Fuerzas Armadas.</p>
+        <button type="button" class="calc-enlace" onclick="irACalcDescansos()">🧮 Calcular mis días y llevar la cuenta del tope anual ❯</button>
     </div>
 </section>
 
@@ -842,6 +850,47 @@
         </select>
         <div id="clResultado" class="calc-resultado"></div>
         <p class="fuente">ODEF 253/2015 norma 8ª anexo I · Guía pág. 38-42</p>
+    </div>
+
+    <!-- CALC 4: DESCANSOS POR GUARDIAS Y ACTIVIDADES (ANEXO I ET) -->
+    <button id="btnCalcDescansos" class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
+        <span>Descansos por Guardias y Actividades</span><span class="chevron text-tactical-orange text-lg">▼</span>
+    </button>
+    <div class="accordion-content">
+        <p class="text-xs text-gray-300 mb-2">Según el Anexo I del ET (ODEF 1363/2016). Calcula el DO, el DA o el DPP que genera cada actividad y lleva la cuenta del tope anual de 10 días.</p>
+        <label class="calc-label" for="cdTipo">Actividad</label>
+        <select id="cdTipo" class="calc-input" onchange="calcDescansos()">
+            <option value="g24">Guardia de 24h o más con permanencia en BAE</option>
+            <option value="jic">JIC (instrucción continuada) de 24h o más</option>
+            <option value="extra">Actividad extraordinaria fuera de la localidad (cursos, seminarios, inspecciones, competiciones...)</option>
+            <option value="prep">Actividad de preparación / misión permanente</option>
+            <option value="g_menos24">Guardia de menos de 24h con permanencia</option>
+            <option value="oncall">Guardia "On Call" (localizada)</option>
+            <option value="prolong">Prolongación ocasional de la jornada</option>
+        </select>
+        <div id="cdDuracionWrap">
+            <label class="calc-label" for="cdDias">Duración de la actividad (días)</label>
+            <input type="number" id="cdDias" class="calc-input" min="1" value="7" inputmode="numeric" oninput="calcDescansos()">
+        </div>
+        <div id="cdFechaWrap">
+            <label class="calc-label" for="cdFecha" id="cdFechaLabel">Día en que termina la guardia</label>
+            <input type="date" id="cdFecha" class="calc-input" onchange="calcDescansos()">
+        </div>
+        <label id="cdFestivoWrap" class="flex items-start gap-2 mt-3 text-sm">
+            <input type="checkbox" id="cdFestivo" class="mt-1" onchange="calcDescansos()">
+            <span>El primer día laborable que sale es festivo en mi localidad</span>
+        </label>
+        <div id="cdResultado" class="calc-resultado"></div>
+
+        <div class="calc-resultado">
+            <div class="flex justify-between items-center">
+                <p class="font-bold text-tactical-orange text-sm uppercase">Mi contador anual</p>
+                <select id="cdAnio" class="cd-anio" onchange="pintarContador()" aria-label="Año del contador"></select>
+            </div>
+            <div id="cdContador"></div>
+            <p class="text-xs text-gray-400 mt-2">Se guarda solo en este dispositivo. Si cambias de móvil o borras los datos del navegador, se pierde.</p>
+        </div>
+        <p class="fuente">Art. 11 y 12 y Disp. Final 2ª ODEF 1363/2016 · Anexo I Orientaciones ET · Criterio DIGENPER</p>
     </div>
 </section>
 
@@ -1350,7 +1399,164 @@
         res.innerHTML = html;
     }
 
+    // 7.4 Descansos por guardias y actividades (Anexo I ET, ODEF 1363/2016)
+    const CLAVE_DESCANSOS = 'descansosAJ';
+    const TOPE_ANUAL = 10;
+    const TIPOS_DESCANSO = {
+        g24: { nombre: 'Guardia 24h+', fecha: 'Día en que entras de guardia', dobl: true },
+        jic: { nombre: 'JIC 24h+', fecha: 'Día en que empieza la JIC', dobl: true },
+        extra: { nombre: 'Act. extraordinaria', fecha: 'Día en que termina la actividad', bloque: 7, campo: 'da' },
+        prep: { nombre: 'Preparación / misión', fecha: 'Día en que termina la actividad', bloque: 5, campo: 'dpp' },
+        g_menos24: { nombre: 'Guardia <24h', jeuco: 'Puede generar un descanso adicional inferior a 1 día, según la duración. Lo fija el JEUCO.' },
+        oncall: { nombre: 'On Call', jeuco: 'No genera DO. Si hay activación, puede generar un descanso adicional inferior a 1 día, según el tiempo desde que te incorporas hasta que sales. Lo fija el JEUCO.' },
+        prolong: { nombre: 'Prolongación', jeuco: 'Puede generar descanso adicional en proporción a lo prolongado. Lo fija el JEUCO.' }
+    };
+    let descansoActual = null; // lo último calculado, listo para añadir al contador
+
+    function leerDescansos() {
+        try { const d = JSON.parse(leerAlmacen(CLAVE_DESCANSOS) || '[]'); return Array.isArray(d) ? d : []; }
+        catch (e) { return []; }
+    }
+    function guardarDescansos(lista) { guardarAlmacen(CLAVE_DESCANSOS, JSON.stringify(lista)); }
+
+    function esFinDeSemana(d) { return d.getDay() === 0 || d.getDay() === 6; }
+    function siguienteLaborable(fecha) {
+        let d = sumarDias(fecha, 1);
+        while (esFinDeSemana(d)) d = sumarDias(d, 1);
+        return d;
+    }
+
+    function calcDescansos() {
+        const tipo = document.getElementById('cdTipo').value;
+        const t = TIPOS_DESCANSO[tipo];
+        const res = document.getElementById('cdResultado');
+        document.getElementById('cdDuracionWrap').classList.toggle('hidden', !t.bloque);
+        document.getElementById('cdFechaWrap').classList.toggle('hidden', !t.fecha);
+        document.getElementById('cdFestivoWrap').classList.toggle('hidden', !t.dobl);
+        if (t.fecha) document.getElementById('cdFechaLabel').textContent = t.fecha + (t.bloque ? ' (para el contador)' : '');
+        descansoActual = null;
+
+        if (t.jeuco) {
+            res.innerHTML = '<p class="calc-total" style="font-size:1.1rem">Lo determina el JEUCO</p>'
+                + '<p class="text-sm">' + t.jeuco + '</p>'
+                + '<p class="text-xs text-gray-300 mt-2">No tiene límite anual fijado y no cuenta para el tope de 10 días.</p>';
+            return;
+        }
+
+        const fecha = leerFecha('cdFecha');
+        const anio = (fecha || new Date()).getFullYear();
+        const notas = [];
+        let html = '';
+
+        if (t.dobl) {
+            html += '<p class="calc-total">1 DO <span>+</span> 1 DA</p>';
+            if (fecha) {
+                let dia = siguienteLaborable(fecha);
+                if (document.getElementById('cdFestivo').checked) dia = siguienteLaborable(dia);
+                html += filaResultado('Descanso Obligatorio (no postergable)', fmt(dia));
+            } else {
+                html += filaResultado('Descanso Obligatorio (no postergable)', 'el día siguiente');
+            }
+            html += filaResultado('Descanso Adicional', 'preferentemente en baja actividad');
+            notas.push('El DO es el día siguiente o, si cae en sábado, domingo o festivo, el primer día laborable. Marca la casilla si ese día es festivo en tu localidad (si hay varios festivos seguidos, cuenta tú el primer laborable).');
+            if (tipo === 'jic') notas.push('Si la JIC dura más de 24h, el DO es el primer día laborable tras su final.');
+            descansoActual = { tipo: tipo, anio: anio, fecha: fecha ? aISO(fecha) : null, da: 1, dpp: 0 };
+        } else {
+            const dias = Math.max(0, Math.round(numero('cdDias', 0)));
+            const n = Math.floor(dias / t.bloque);
+            const sigla = t.campo === 'da' ? 'DA' : 'DPP';
+            if (n === 0) {
+                html += '<p class="calc-total">0 <span>' + sigla + '</span></p>';
+                notas.push('Hace falta una duración mínima de ' + t.bloque + ' días para generar ' + sigla + '.');
+            } else {
+                html += '<p class="calc-total">' + n + ' <span>' + (n === 1 ? 'día' : 'días') + ' de ' + sigla + '</span></p>';
+                html += filaResultado(dias + ' días ÷ ' + t.bloque, n + ' ' + sigla + (dias % t.bloque ? ' (sobran ' + (dias % t.bloque) + ' días)' : ''));
+                html += filaResultado('Cuándo', t.campo === 'da' ? 'preferentemente en baja actividad' : 'al regreso o en baja actividad');
+                descansoActual = { tipo: tipo, anio: anio, fecha: fecha ? aISO(fecha) : null, da: t.campo === 'da' ? n : 0, dpp: t.campo === 'dpp' ? n : 0 };
+            }
+            notas.push('Se cuentan bloques completos de ' + t.bloque + ' días. Confirma con tu unidad cómo computa los días sobrantes.');
+            if (tipo === 'extra') notas.push('Solo si la actividad es fuera de tu localidad de destino.');
+        }
+
+        if (descansoActual) {
+            const lista = leerDescansos().filter(r => r.anio === anio);
+            const campo = descansoActual.da ? 'da' : 'dpp';
+            const usado = lista.reduce((s, r) => s + (r[campo] || 0), 0);
+            const sigla = campo === 'da' ? 'DA' : 'DPP';
+            if (usado + descansoActual[campo] > TOPE_ANUAL) {
+                const caben = Math.max(0, TOPE_ANUAL - usado);
+                notas.push('Ojo: en ' + anio + ' ya llevas ' + usado + ' ' + sigla + '. Con el tope de ' + TOPE_ANUAL + ', ' + (caben === 0 ? 'ya no te cabe ninguno más.' : caben === 1 ? 'solo te cabe 1 más.' : 'solo te caben ' + caben + ' más.'));
+            }
+            html += '<button type="button" class="calc-enlace" onclick="anadirDescanso()">＋ Añadir al contador de ' + anio + '</button>';
+        }
+        html += '<ul class="list-disc pl-5 space-y-1 text-xs text-gray-300 mt-2">' + notas.map(n => '<li>' + n + '</li>').join('') + '</ul>';
+        res.innerHTML = html;
+    }
+
+    function anadirDescanso() {
+        if (!descansoActual) return;
+        const lista = leerDescansos();
+        const id = Math.max(Date.now(), ...lista.map(r => r.id + 1)); // id único aunque se pulse dos veces seguidas
+        lista.push(Object.assign({ id: id }, descansoActual));
+        guardarDescansos(lista);
+        pintarContador(descansoActual.anio);
+        calcDescansos();
+    }
+
+    function borrarDescanso(id) {
+        guardarDescansos(leerDescansos().filter(r => r.id !== id));
+        pintarContador();
+        calcDescansos();
+    }
+
+    function barraTope(etiqueta, usado) {
+        const pct = Math.min(100, usado / TOPE_ANUAL * 100);
+        return '<div class="cd-tope"><span>' + etiqueta + '</span><strong>' + usado + ' / ' + TOPE_ANUAL + '</strong></div>'
+            + '<div class="cd-barra"><div class="' + (usado >= TOPE_ANUAL ? 'cd-lleno' : '') + '" style="width:' + pct + '%"></div></div>';
+    }
+
+    function pintarContador(anioElegido) {
+        const lista = leerDescansos();
+        const sel = document.getElementById('cdAnio');
+        const actual = new Date().getFullYear();
+        const anio = anioElegido || parseInt(sel.value, 10) || actual;
+        const anios = [...new Set(lista.map(r => r.anio).concat([actual, anio]))].sort((a, b) => b - a);
+        sel.innerHTML = anios.map(a => '<option value="' + a + '"' + (a === anio ? ' selected' : '') + '>' + a + '</option>').join('');
+
+        const delAnio = lista.filter(r => r.anio === anio);
+        const da = delAnio.reduce((s, r) => s + (r.da || 0), 0);
+        const dpp = delAnio.reduce((s, r) => s + (r.dpp || 0), 0);
+        let html = barraTope('Descansos Adicionales (DA)', da) + barraTope('Descansos por Preparación (DPP)', dpp);
+        const avisos = [];
+        if (da > TOPE_ANUAL) avisos.push('Superas el tope de DA en ' + (da - TOPE_ANUAL) + ' días: el art. 11.4 limita los DA de guardias, JIC y actividades fuera a ' + TOPE_ANUAL + ' al año.');
+        if (dpp > TOPE_ANUAL) avisos.push('Superas el tope de DPP en ' + (dpp - TOPE_ANUAL) + ' días.');
+        if (avisos.length) html += '<ul class="list-disc pl-5 space-y-1 text-xs text-red-400 mt-2">' + avisos.map(a => '<li>' + a + '</li>').join('') + '</ul>';
+
+        if (delAnio.length) {
+            html += '<div class="mt-3">' + delAnio.slice().sort((a, b) => (b.fecha || '').localeCompare(a.fecha || '')).map(r => {
+                const f = r.fecha ? fmt(new Date(r.fecha + 'T00:00:00')) : 'sin fecha';
+                const dias = r.da ? r.da + ' DA' : r.dpp + ' DPP';
+                return '<div class="cd-registro"><span>' + TIPOS_DESCANSO[r.tipo].nombre + ' · ' + f + ' · <strong>' + dias + '</strong></span>'
+                    + '<button type="button" class="cd-borrar" onclick="borrarDescanso(' + r.id + ')" aria-label="Borrar">✕</button></div>';
+            }).join('') + '</div>';
+            html += '<p class="text-xs text-gray-300 mt-2">Los DA de ' + anio + ' se pueden pedir hasta el 31 de enero de ' + (anio + 1) + '. Si te los deniegan por necesidades del servicio, pasan al 1er semestre siguiente y no se pierden al cambiar de destino.</p>';
+        } else {
+            html += '<p class="text-xs text-gray-400 mt-3">Aún no has añadido nada en ' + anio + '. Calcula una actividad y pulsa "Añadir al contador".</p>';
+        }
+        document.getElementById('cdContador').innerHTML = html;
+    }
+
+    function irACalcDescansos() {
+        abrirPantalla('pantalla_calc');
+        const btn = document.getElementById('btnCalcDescansos');
+        cambiarAcordeon(btn, true);
+        actualizarBotonExpandir();
+        btn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     function iniciarCalculadoras() {
+        calcDescansos();
+        pintarContador();
         const anios = parseInt(leerAlmacen(CLAVE_ANIOS), 10);
         if (!isNaN(anios)) {
             let vac = 22;

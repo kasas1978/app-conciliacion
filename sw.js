@@ -1,6 +1,6 @@
 // Service worker: guarda la app en el móvil para que funcione sin cobertura.
 // Cuando cambies el contenido, sube el número de versión para que los móviles se actualicen.
-const VERSION = 'conciliacion-aj-v3';
+const VERSION = 'conciliacion-aj-v4';
 const ARCHIVOS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon-maskable-512.png', './apple-touch-icon.png'];
 
 self.addEventListener('install', e => {
