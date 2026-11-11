@@ -1,0 +1,24 @@
+# Configuración para Hostinger (Apache / LiteSpeed)
+
+# 1. Forzar HTTPS (obligatorio para instalar la app y para PWABuilder)
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# 2. Tipos de archivo correctos
+AddType application/manifest+json .webmanifest
+AddType application/json .json
+
+# 3. El service worker y la página nunca se guardan en caché del navegador,
+#    así los móviles reciben las actualizaciones
+<FilesMatch "^(sw\.js|index\.html|manifest\.webmanifest)$">
+  Header set Cache-Control "no-cache, no-store, must-revalidate"
+</FilesMatch>
+
+# 4. Iconos y capturas sí se pueden guardar en caché (1 mes)
+<FilesMatch "\.(png)$">
+  Header set Cache-Control "public, max-age=2592000"
+</FilesMatch>
+
+# 5. Abrir index.html al entrar en la carpeta
+DirectoryIndex index.html

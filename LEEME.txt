@@ -1,0 +1,62 @@
+GUÍA CONCILIACIÓN - SUBIR A HOSTINGER Y CREAR LA APP CON PWABUILDER
+====================================================================
+
+CONTENIDO DE ESTA CARPETA
+  index.html              La app completa
+  manifest.webmanifest    Datos de la app (nombre, iconos, colores, capturas)
+  sw.js                   Service worker (funcionamiento sin conexión)
+  .htaccess               Configuración del servidor (HTTPS, cachés)  *archivo oculto*
+  icon-*.png, apple-touch-icon.png   Iconos
+  screenshots/            Capturas para PWABuilder y Google Play
+
+
+PASO 1 - SUBIR LOS ARCHIVOS A HOSTINGER
+  1. Entra en hPanel > Sitios web > Administrar > Administrador de archivos.
+  2. Elige dónde va la app:
+       a) En la raíz del dominio:  public_html/
+          -> quedará en https://tudominio.com/
+       b) En una subcarpeta:      public_html/conciliacion/
+          -> quedará en https://tudominio.com/conciliacion/
+     (Si en la raíz ya está la web de la academia, usa la opción b.)
+  3. Sube el archivo .zip a esa carpeta y usa "Extraer".
+     Comprueba que los archivos quedan DIRECTAMENTE en la carpeta
+     (index.html, sw.js...), no dentro de otra subcarpeta "pwa".
+  4. Comprueba que .htaccess se ha subido (es un archivo oculto; en el
+     administrador de archivos activa "mostrar archivos ocultos" si no lo ves).
+     Si usas la opción b y ya tienes un .htaccess en public_html, no pasa nada:
+     cada carpeta tiene el suyo.
+  5. Comprueba que el SSL (certificado https) está activo para el dominio
+     en hPanel > Seguridad > SSL. Hostinger lo da gratis.
+
+
+PASO 2 - COMPROBAR QUE FUNCIONA
+  Abre la dirección en el móvil con Chrome. Debe:
+   - Cargar con el candado (https).
+   - Ofrecer "Instalar aplicación" o "Añadir a pantalla de inicio".
+   - Abrirse sin cobertura después de la primera visita (prueba en modo avión).
+
+
+PASO 3 - PWABUILDER (app para Google Play)
+  1. Entra en https://www.pwabuilder.com y pega la dirección de la app.
+  2. Revisa la puntuación (manifest, service worker y seguridad ya están preparados).
+  3. Pulsa "Package for stores" > Android > Generate package.
+     Package ID recomendado: com.academiaaj.conciliacion (no se puede cambiar
+     después de publicar).
+  4. Descarga el zip. GUARDA EN LUGAR SEGURO el archivo signing.keystore y las
+     contraseñas: sin ellos no podrás publicar actualizaciones nunca más.
+  5. Dentro del zip viene assetlinks.json. Súbelo a Hostinger en:
+        public_html/.well-known/assetlinks.json
+     IMPORTANTE: siempre en la RAÍZ del dominio, aunque la app esté en una
+     subcarpeta. Debe verse en https://tudominio.com/.well-known/assetlinks.json
+     Si falta, la app de Android mostrará la barra del navegador arriba.
+  6. Sube el archivo .aab a Google Play Console (necesitas cuenta de
+     desarrollador de Google).
+     Cuando Google Play firme la app, añade también su huella SHA-256
+     (Play Console > Integridad de la app) a assetlinks.json.
+
+
+CUANDO ACTUALICES LA APP
+  1. Sube el nuevo index.html a Hostinger (sustituyendo el anterior).
+  2. En sw.js cambia la versión: conciliacion-aj-v2 -> conciliacion-aj-v3, etc.
+  3. Los móviles y la app de Android reciben el cambio solos; no hace falta
+     volver a publicar en Google Play si solo cambias el contenido.
