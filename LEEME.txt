@@ -1,5 +1,21 @@
-GUÍA CONCILIACIÓN - SUBIR A HOSTINGER Y CREAR LA APP CON PWABUILDER
-====================================================================
+GUÍA CONCILIACIÓN - PUBLICACIÓN Y APP CON PWABUILDER
+====================================================
+
+PUBLICACIÓN ACTUAL (desde noviembre de 2026): GITHUB PAGES
+  Dirección: https://conciliacion.campusacademiaaj.com/
+  - Se publica sola cada vez que se sube un cambio a la rama main del
+    repositorio de GitHub (tarda 1-2 minutos). No hay que subir nada a Hostinger.
+  - El archivo CNAME indica a GitHub la dirección propia. No lo borres.
+  - En Hostinger (DNS de campusacademiaaj.com) debe existir un registro:
+        Tipo CNAME · Nombre: conciliacion · Apunta a: kasas1978.github.io
+  - .htaccess solo se usa si algún día vuelve a alojarse en Hostinger;
+    GitHub Pages lo ignora.
+  - Al cambiar contenido, sube igualmente la versión de sw.js (ver abajo).
+
+  Los pasos 1 y 2 de abajo (Hostinger) quedan como alternativa. Para PWABuilder
+  (paso 3), usa la dirección nueva; assetlinks.json iría en el repositorio, en
+  .well-known/assetlinks.json.
+
 
 CONTENIDO DE ESTA CARPETA
   index.html              La app completa
