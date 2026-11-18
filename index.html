@@ -54,6 +54,18 @@
         .cd-registro { display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; font-size: 0.75rem; padding: 0.35rem 0; border-bottom: 1px solid #3f3d6b; }
         .cd-borrar { background: #4a5568; color: #fff; border-radius: 4px; padding: 0.15rem 0.5rem; font-size: 0.75rem; flex-shrink: 0; }
         .menu-coincidencia { font-size: 0.7rem; color: #cbd5e0; font-weight: normal; text-transform: none; display: block; margin-top: 2px; }
+        .menu-sub { display: block; font-weight: 400; text-transform: none; font-size: 0.8rem; color: #cbd5e0; margin-top: 2px; line-height: 1.25; }
+        html.letra-grande { font-size: 118%; }
+        .chip-busca { flex-shrink: 0; background: #000; color: #fff; font-weight: 700; font-size: 0.75rem; border-radius: 9999px; padding: 0.3rem 0.75rem; min-height: 32px; }
+        .chip-busca.activo { background: #fff; color: #000; }
+        #chipsBusca { display: flex; gap: 0.5rem; overflow-x: auto; padding-bottom: 2px; margin-top: 0.5rem; }
+        .btn-herramienta { background: #1f2937; color: #fff; font-weight: 700; font-size: 0.85rem; border: 1px solid #4b5563; border-radius: 0.5rem; padding: 0.6rem 0.9rem; min-height: 44px; }
+        .btn-subir { position: fixed; right: 14px; bottom: 16px; z-index: 40; width: 48px; height: 48px; border-radius: 9999px; border: 0; background: #ff8c00; color: #000; font-size: 1.4rem; font-weight: 800; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
+        .btn-subir.hidden { display: none; }
+        .ayuda-lista { list-style: decimal; padding-left: 1.4rem; margin: 0; font-size: 0.9rem; line-height: 1.4; }
+        .ayuda-lista li { margin-bottom: 0.6rem; }
+        .ayuda-nota { font-size: 0.75rem; color: #9ca3af; margin: 0.5rem 0 0; }
+        .ayuda-ok { margin-top: 0.9rem; background: #ff8c00; color: #000; font-weight: 700; border-radius: 0.375rem; padding: 0.6rem 1.5rem; min-height: 44px; }
     </style>
 </head>
 <body class="pb-10">
@@ -70,11 +82,26 @@
     </div>
 
     <!-- BUSCADOR GLOBAL -->
-    <div id="contenedorBuscador" class="mt-3 relative">
+    <div id="contenedorBuscador" class="mt-3">
+        <div class="relative">
         <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">🔍</span>
         <input type="text" id="buscador" oninput="filtrarContenido()" placeholder="Buscar (ej: moscosos, guardias, adopción...)" autocomplete="off" class="w-full pl-9 pr-3 py-2 rounded text-black font-bold text-sm shadow focus:outline-none focus:ring-2 focus:ring-orange-600 transition">
+        </div>
+        <div id="chipsBusca" aria-label="Búsquedas rápidas"></div>
     </div>
 </header>
+
+<!-- AYUDA DE USO (se muestra la primera vez) -->
+<section id="ayudaInicio" class="hidden bg-gray-800 p-4 m-4 rounded-lg shadow-lg border-l-4 border-orange-500 fade-in" aria-labelledby="ayudaTitulo">
+    <h3 id="ayudaTitulo" class="text-tactical-orange font-bold uppercase text-sm mb-2">¿Cómo se usa esta guía?</h3>
+    <ol class="ayuda-lista">
+        <li><strong>Pon tus años de servicio</strong> en la calculadora de abajo. La guía te dice tus días de vacaciones y de asuntos propios.</li>
+        <li><strong>Busca lo que necesitas.</strong> Toca una de las palabras de arriba (por ejemplo «nacimiento») o escribe la tuya. También puedes elegir un tema de la lista.</li>
+        <li><strong>Usa las calculadoras</strong> para saber los días y las fechas de un permiso concreto.</li>
+    </ol>
+    <p class="ayuda-nota">Para volver al menú, toca «Volver» o el botón atrás del móvil. Tus datos se guardan solo en tu móvil.</p>
+    <button type="button" id="btnAyudaOk" class="ayuda-ok">Entendido</button>
+</section>
 
 <!-- CALCULADORA RÁPIDA -->
 <div id="calculadoraGlobal" class="bg-gray-800 p-4 m-4 rounded-lg shadow-lg border-l-4 border-orange-500 fade-in">
@@ -97,25 +124,31 @@
 <!-- MENÚ PRINCIPAL -->
 <main id="menuPrincipal" class="p-4 fade-in">
     <div class="space-y-3" id="listaMenu">
-        <button data-keywords="calculadoras calcular dias permiso fallecimiento enfermedad grave hospitalizacion nacimiento adopcion fechas semanas lactancia acumulada jornadas descansos guardias jic do da dpp tope 10 dias contador actividades preparacion" onclick="abrirPantalla('pantalla_calc')" class="menu-btn w-full text-left bg-gray-800 p-4 rounded font-bold uppercase shadow-md border-2 border-orange-500 flex justify-between items-center active:scale-[0.98] transition-transform"><span>🧮 Calculadoras de Permisos</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="consideraciones generales necesidades servicio silencio administrativo vacaciones permisos reducciones licencias recursos computo" onclick="abrirPantalla('pantalla1')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>1. Consideraciones Generales</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="vacaciones dias anuales antiguedad trienios aplazamiento interrupcion verano estival incapacidad baja extranjero compensacion" onclick="abrirPantalla('pantalla2')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>2. Vacaciones</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="permisos asuntos particulares propios moscosos accidente enfermedad grave cirugia fallecimiento traslado mudanza deber inexcusable" onclick="abrirPantalla('pantalla3')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>3. Permisos Generales</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="conciliacion nacimiento parto adopcion acogimiento guarda tutela internacional lactancia permiso parental matrimonio boda pareja hecho fecundacion prenatales medicos prematuros gestacion embarazo organos donacion monoparental" onclick="abrirPantalla('pantalla4')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>4. Conciliación y Nacimiento</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="reduccion jornada enfermedad muy grave cuidado menores guarda legal discapacidad cancer prematuros hospitalizados exoneracion guardias custodia compartida monoparental mayores terrorismo" onclick="abrirPantalla('pantalla5')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>5. Reducción de Jornada</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="licencias asuntos propios estudios meses sin retribucion sueldo formativas mtm" onclick="abrirPantalla('pantalla6')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>6. Licencias</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="apoyo formacion examenes cursos mtm temporales empleo academico" onclick="abrirPantalla('pantalla7')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>7. Apoyo a la Formación</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="excedencias interes particular agrupacion familiar cuidado familiares violencia genero sexual suspension condicion militar sueldo" onclick="abrirPantalla('pantalla8')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>8. Excedencias</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="medidas jornada general verano intensiva flexibilidad horaria reducida interes particular especial dedicacion quimioterapia radioterapia aptos limitaciones" onclick="abrirPantalla('pantalla9')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>9. Medidas de Jornada</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="descansos obligatorios adicionales 24h guardias continuadas dietas plus operaciones prolongacion ocasional anexo ejercito de tierra jeuco dpp descanso por preparacion actividades extraordinarias seminarios inspecciones competiciones actos institucionales cursos jic instruccion continuada bae on call" onclick="abrirPantalla('pantalla10')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>10. Descansos Oblig./Adic.</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="parejas agrupacion familiar destinos forzosos vacantes comisiones servicio aplazamiento turnos guardias simultaneas embarazo lactancia puesto asignacion temporal excepcional" onclick="abrirPantalla('pantalla11')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>11. Parejas y Agrupación Familiar</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="violencia genero sexual mujer proteccion destino urgente jornada reduccion" onclick="abrirPantalla('pantalla12')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>12. Violencia de Género / Sexual</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="misiones operaciones exterior aplazamiento reduccion descansos" onclick="abrirPantalla('pantalla13')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>13. Misiones y Operaciones</span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="marco legal aviso leyes reales decretos ordenes de defensa exencion contacto omi telefono correo consultas" onclick="abrirPantalla('pantalla_legal')" class="menu-btn w-full text-left bg-gray-700 p-4 rounded font-bold uppercase shadow-md border-l-4 border-white flex justify-between items-center mt-6 active:scale-[0.98] transition-transform"><span>Marco Legal y Aviso</span><span class="text-white">❯</span></button>
+        <button data-keywords="calculadoras calcular dias permiso fallecimiento enfermedad grave hospitalizacion nacimiento adopcion fechas semanas lactancia acumulada jornadas descansos guardias jic do da dpp tope 10 dias contador actividades preparacion" onclick="abrirPantalla('pantalla_calc')" class="menu-btn w-full text-left bg-gray-800 p-4 rounded font-bold uppercase shadow-md border-2 border-orange-500 flex justify-between items-center active:scale-[0.98] transition-transform"><span>🧮 Calculadoras de Permisos<small class="menu-sub">Calcula tus días y fechas de permiso y lleva la cuenta de descansos</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="consideraciones generales necesidades servicio silencio administrativo vacaciones permisos reducciones licencias recursos computo" onclick="abrirPantalla('pantalla1')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>1. Consideraciones Generales<small class="menu-sub">Cómo y dónde se piden vacaciones, permisos y reducciones</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="vacaciones dias anuales antiguedad trienios aplazamiento interrupcion verano estival incapacidad baja extranjero compensacion" onclick="abrirPantalla('pantalla2')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>2. Vacaciones<small class="menu-sub">Cuántos días tienes y cuándo se pueden aplazar o interrumpir</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="permisos asuntos particulares propios moscosos accidente enfermedad grave cirugia fallecimiento traslado mudanza deber inexcusable" onclick="abrirPantalla('pantalla3')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>3. Permisos Generales<small class="menu-sub">Asuntos propios, enfermedad, fallecimiento y otros permisos</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="conciliacion nacimiento parto adopcion acogimiento guarda tutela internacional lactancia permiso parental matrimonio boda pareja hecho fecundacion prenatales medicos prematuros gestacion embarazo organos donacion monoparental" onclick="abrirPantalla('pantalla4')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>4. Conciliación y Nacimiento<small class="menu-sub">Boda, nacimiento, adopción, gestación, lactancia y parental</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="reduccion jornada enfermedad muy grave cuidado menores guarda legal discapacidad cancer prematuros hospitalizados exoneracion guardias custodia compartida monoparental mayores terrorismo" onclick="abrirPantalla('pantalla5')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>5. Reducción de Jornada<small class="menu-sub">Reducir la jornada por hijos o familiares y qué libra de guardias</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="licencias asuntos propios estudios meses sin retribucion sueldo formativas mtm" onclick="abrirPantalla('pantalla6')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>6. Licencias<small class="menu-sub">Asuntos propios sin sueldo y licencia por estudios</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="apoyo formacion examenes cursos mtm temporales empleo academico" onclick="abrirPantalla('pantalla7')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>7. Apoyo a la Formación<small class="menu-sub">Permisos para exámenes y cursos</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="excedencias interes particular agrupacion familiar cuidado familiares violencia genero sexual suspension condicion militar sueldo" onclick="abrirPantalla('pantalla8')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>8. Excedencias<small class="menu-sub">Dejar de trabajar un tiempo: interés particular, familiares, violencia</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="medidas jornada general verano intensiva flexibilidad horaria reducida interes particular especial dedicacion quimioterapia radioterapia aptos limitaciones" onclick="abrirPantalla('pantalla9')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>9. Medidas de Jornada<small class="menu-sub">Horario de verano, flexibilidad y reducción de jornada</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="descansos obligatorios adicionales 24h guardias continuadas dietas plus operaciones prolongacion ocasional anexo ejercito de tierra jeuco dpp descanso por preparacion actividades extraordinarias seminarios inspecciones competiciones actos institucionales cursos jic instruccion continuada bae on call" onclick="abrirPantalla('pantalla10')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>10. Descansos Oblig./Adic.<small class="menu-sub">Descansos tras guardias y actividades, y descansos adicionales</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="parejas agrupacion familiar destinos forzosos vacantes comisiones servicio aplazamiento turnos guardias simultaneas embarazo lactancia puesto asignacion temporal excepcional" onclick="abrirPantalla('pantalla11')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>11. Parejas y Agrupación Familiar<small class="menu-sub">Destinos, comisiones, guardias y puesto en embarazo o lactancia</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="violencia genero sexual mujer proteccion destino urgente jornada reduccion" onclick="abrirPantalla('pantalla12')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>12. Violencia de Género / Sexual<small class="menu-sub">Cambio de destino inmediato, jornada y excedencia</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="misiones operaciones exterior aplazamiento reduccion descansos" onclick="abrirPantalla('pantalla13')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>13. Misiones y Operaciones<small class="menu-sub">Resumen de medidas en misiones y operaciones</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="marco legal aviso leyes reales decretos ordenes de defensa exencion contacto omi telefono correo consultas" onclick="abrirPantalla('pantalla_legal')" class="menu-btn w-full text-left bg-gray-700 p-4 rounded font-bold uppercase shadow-md border-l-4 border-white flex justify-between items-center mt-6 active:scale-[0.98] transition-transform"><span>Marco Legal y Aviso<small class="menu-sub">Leyes en las que se basa, aviso y contacto de la OMI</small></span><span class="text-white">❯</span></button>
     </div>
     <p id="msgSinResultados" class="hidden text-center text-tactical-orange font-bold mt-6 bg-gray-800 p-4 rounded">Ningún apartado coincide con la búsqueda.</p>
+    <div class="flex flex-wrap justify-center gap-3 mt-6">
+        <button type="button" id="btnLetra" class="btn-herramienta" aria-pressed="false">A+ Letra grande</button>
+        <button type="button" id="btnAyudaAbrir" class="btn-herramienta">¿Cómo se usa?</button>
+    </div>
     <p id="versionApp" class="hidden text-center text-xs text-gray-400 mt-6"></p>
 </main>
+
+<button type="button" id="btnSubir" class="btn-subir hidden" aria-label="Subir al principio">↑</button>
 
 <!-- ==================== PANTALLAS DE DETALLE ==================== -->
 
@@ -976,6 +1009,7 @@
         }
         iniciarCalculadoras();
         indexarContenido();
+        iniciarAyuda();
         registrarServiceWorker();
         ajustarAlturaCabecera();
         // Si la URL trae una pantalla (#pantalla3), se abre directamente
@@ -1599,6 +1633,69 @@
             el.textContent = 'Versión ' + version;
             el.classList.remove('hidden');
         }).catch(function () {});
+    }
+
+    // --- Ayuda de uso, búsquedas rápidas, letra grande y botón subir ---
+    const CLAVE_AYUDA = 'ayudaVistaAJ';
+    const CLAVE_LETRA = 'letraGrandeAJ';
+    const BUSQUEDAS_RAPIDAS = ['moscosos', 'nacimiento', 'lactancia', 'vacaciones', 'guardias', 'excedencia', 'boda'];
+
+    function mostrarAyuda(visible) {
+        document.getElementById('ayudaInicio').classList.toggle('hidden', !visible);
+        ajustarAlturaCabecera();
+    }
+
+    function aplicarLetraGrande(activa) {
+        document.documentElement.classList.toggle('letra-grande', activa);
+        document.getElementById('btnLetra').setAttribute('aria-pressed', activa ? 'true' : 'false');
+        ajustarAlturaCabecera();
+    }
+
+    function actualizarChips() {
+        const actual = normalizar(document.getElementById('buscador').value.trim());
+        document.querySelectorAll('.chip-busca').forEach(c => c.classList.toggle('activo', normalizar(c.textContent) === actual && actual !== ''));
+    }
+
+    function iniciarAyuda() {
+        const contChips = document.getElementById('chipsBusca');
+        BUSQUEDAS_RAPIDAS.forEach(palabra => {
+            const b = document.createElement('button');
+            b.type = 'button';
+            b.className = 'chip-busca';
+            b.textContent = palabra;
+            b.addEventListener('click', function () {
+                const campo = document.getElementById('buscador');
+                campo.value = normalizar(campo.value.trim()) === normalizar(palabra) ? '' : palabra;
+                filtrarContenido();
+                actualizarChips();
+            });
+            contChips.appendChild(b);
+        });
+        document.getElementById('buscador').addEventListener('input', actualizarChips);
+
+        mostrarAyuda(leerAlmacen(CLAVE_AYUDA) !== '1');
+        document.getElementById('btnAyudaOk').addEventListener('click', function () {
+            mostrarAyuda(false);
+            guardarAlmacen(CLAVE_AYUDA, '1');
+        });
+        document.getElementById('btnAyudaAbrir').addEventListener('click', function () {
+            mostrarAyuda(true);
+            guardarAlmacen(CLAVE_AYUDA, '0');
+            window.scrollTo(0, 0);
+        });
+
+        aplicarLetraGrande(leerAlmacen(CLAVE_LETRA) === '1');
+        document.getElementById('btnLetra').addEventListener('click', function () {
+            const activa = !document.documentElement.classList.contains('letra-grande');
+            aplicarLetraGrande(activa);
+            guardarAlmacen(CLAVE_LETRA, activa ? '1' : '0');
+        });
+
+        const btnSubir = document.getElementById('btnSubir');
+        window.addEventListener('scroll', function () {
+            btnSubir.classList.toggle('hidden', (window.pageYOffset || document.documentElement.scrollTop) < 700);
+        }, { passive: true });
+        btnSubir.addEventListener('click', function () { window.scrollTo({ top: 0, behavior: 'smooth' }); });
     }
 
     window.addEventListener('resize', ajustarAlturaCabecera);
