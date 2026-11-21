@@ -74,6 +74,15 @@
         .ayuda-lista { list-style: decimal; padding-left: 1.4rem; margin: 0; font-size: 0.9rem; line-height: 1.4; }
         .ayuda-lista li { margin-bottom: 0.6rem; }
         .ayuda-nota { font-size: 0.75rem; color: #9ca3af; margin: 0.5rem 0 0; }
+        .tabla-dias { width: 100%; font-size: 0.8rem; border-collapse: collapse; }
+        .tabla-dias th { text-align: left; color: #ff8c00; font-size: 0.7rem; text-transform: uppercase; padding: 0.3rem 0.25rem; border-bottom: 1px solid #ff8c00; }
+        .tabla-dias td { padding: 0.4rem 0.25rem; border-bottom: 1px solid #3f3d6b; vertical-align: top; }
+        .tabla-dias td:last-child { text-align: right; font-weight: 700; white-space: nowrap; }
+        .tabla-dias .norma { color: #cbd5e0; font-size: 0.7rem; display: block; }
+        .fila-enlace { width: 100%; display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; text-align: left; padding: 0.55rem 0.25rem; border-bottom: 1px solid #3f3d6b; font-size: 0.85rem; background: transparent; color: #fff; }
+        .fila-enlace .norma { color: #ff8c00; font-size: 0.7rem; font-weight: 700; display: block; text-transform: uppercase; }
+        .fila-enlace .dias { font-weight: 700; text-align: right; flex-shrink: 0; max-width: 45%; }
+        .aviso-jefe { background: #3b2f1a; border-left: 3px solid #ff8c00; padding: 0.6rem; border-radius: 4px; font-size: 0.8rem; margin-top: 0.75rem; }
         .ayuda-ok { margin-top: 0.9rem; background: #ff8c00; color: #000; font-weight: 700; border-radius: 0.375rem; padding: 0.6rem 1.5rem; min-height: 44px; }
     </style>
 </head>
@@ -134,8 +143,9 @@
 <!-- MENÚ PRINCIPAL -->
 <main id="menuPrincipal" class="p-4 fade-in">
     <div class="space-y-3" id="listaMenu">
-        <button data-keywords="calculadoras calcular dias permiso fallecimiento enfermedad grave hospitalizacion nacimiento adopcion fechas semanas lactancia acumulada jornadas descansos guardias jic do da dpp tope 10 dias contador actividades preparacion" onclick="abrirPantalla('pantalla_calc')" class="menu-btn w-full text-left bg-gray-800 p-4 rounded font-bold uppercase shadow-md border-2 border-orange-500 flex justify-between items-center active:scale-[0.98] transition-transform"><span>🧮 Calculadoras de Permisos<small class="menu-sub">Calcula tus días y fechas de permiso y lleva la cuenta de descansos</small></span><span class="text-tactical-orange">❯</span></button>
-        <button data-keywords="consideraciones generales necesidades servicio silencio administrativo vacaciones permisos reducciones licencias recursos computo" onclick="abrirPantalla('pantalla1')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>1. Consideraciones Generales<small class="menu-sub">Cómo y dónde se piden vacaciones, permisos y reducciones</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="calculadoras calcular dias permiso fallecimiento enfermedad grave hospitalizacion nacimiento adopcion fechas semanas lactancia acumulada jornadas descansos guardias jic do da dpp tope 10 dias contador actividades preparacion sueldo nomina retribuciones cobro descuento paga extra anexo ii reduccion jornada" onclick="abrirPantalla('pantalla_calc')" class="menu-btn w-full text-left bg-gray-800 p-4 rounded font-bold uppercase shadow-md border-2 border-orange-500 flex justify-between items-center active:scale-[0.98] transition-transform"><span>🧮 Calculadoras de Permisos<small class="menu-sub">Calcula tus días y fechas de permiso, tu sueldo con reducción y lleva la cuenta de descansos</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="anexo i anexo 1 tabla dias normas primera segunda tercera cuarta quinta sexta septima octava novena resumen orden def 253 2015 cuantos dias plazos" onclick="abrirPantalla('pantalla_anexo')" class="menu-btn w-full text-left bg-gray-800 p-4 rounded font-bold uppercase shadow-md border-2 border-orange-500 flex justify-between items-center active:scale-[0.98] transition-transform"><span>📋 Anexo I: Tabla Rápida de Días<small class="menu-sub">Todos los días de cada permiso de un vistazo (normas 1ª a 9ª)</small></span><span class="text-tactical-orange">❯</span></button>
+        <button data-keywords="consideraciones generales necesidades servicio silencio administrativo vacaciones permisos reducciones licencias recursos computo plazos respuesta contestar resolver jefe acreditacion justificante documentacion" onclick="abrirPantalla('pantalla1')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>1. Consideraciones Generales<small class="menu-sub">Cómo y dónde se piden vacaciones, permisos y reducciones</small></span><span class="text-tactical-orange">❯</span></button>
         <button data-keywords="vacaciones dias anuales antiguedad trienios aplazamiento interrupcion verano estival incapacidad baja extranjero compensacion" onclick="abrirPantalla('pantalla2')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>2. Vacaciones<small class="menu-sub">Cuántos días tienes y cuándo se pueden aplazar o interrumpir</small></span><span class="text-tactical-orange">❯</span></button>
         <button data-keywords="permisos asuntos particulares propios moscosos accidente enfermedad grave cirugia fallecimiento traslado mudanza deber inexcusable" onclick="abrirPantalla('pantalla3')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>3. Permisos Generales<small class="menu-sub">Asuntos propios, enfermedad, fallecimiento y otros permisos</small></span><span class="text-tactical-orange">❯</span></button>
         <button data-keywords="conciliacion nacimiento parto adopcion acogimiento guarda tutela internacional lactancia permiso parental matrimonio boda pareja hecho fecundacion prenatales medicos prematuros gestacion embarazo organos donacion monoparental" onclick="abrirPantalla('pantalla4')" class="menu-btn w-full text-left bg-tactical-purple p-4 rounded font-bold uppercase shadow-md border-l-4 border-tactical-orange flex justify-between items-center active:scale-[0.98] transition-transform"><span>4. Conciliación y Nacimiento<small class="menu-sub">Boda, nacimiento, adopción, gestación, lactancia y parental</small></span><span class="text-tactical-orange">❯</span></button>
@@ -183,7 +193,11 @@
         <span>1.3 Solicitud de Vacaciones y Permisos</span><span class="chevron text-tactical-orange text-lg">▼</span>
     </button>
     <div class="accordion-content">
-        <p class="mb-2">Se solicitarán por conducto reglamentario al jefe de la unidad de destino (o de la comisión). Salvo los asuntos particulares, debe aportarse justificación documental.</p>
+        <p class="mb-2">Se solicitarán por conducto reglamentario al jefe de la unidad de destino (o de la comisión). Salvo los asuntos particulares, debe aportarse justificación documental, que se puede presentar <strong>antes o después</strong> del permiso (art. 21.2).</p>
+        <div class="faq-box">
+            <p class="faq-question">¿Qué hay que acreditar?</p>
+            <p class="faq-answer">Las circunstancias que dan derecho a permisos, reducciones y licencias deben estar acreditadas y, en su caso, con informe médico. No hace falta para los días de asuntos particulares. A estos efectos, «persona con discapacidad» es quien tiene reconocido un grado igual o superior al <strong>33 %</strong> (art. 3 ter).</p>
+        </div>
         <div class="faq-box">
             <p class="faq-question">¿Es el silencio administrativo positivo?</p>
             <p class="faq-answer">Sí. El jefe de unidad está obligado a dictar resolución expresa y notificarla (art. 23 ODEF 253/2015). En caso de silencio, será POSITIVO (art. 24 Ley 39/2015), salvo que una norma con rango de ley autorice el silencio negativo.</p>
@@ -192,7 +206,54 @@
             <p class="faq-question">¿Cómo se realiza el cómputo?</p>
             <p class="faq-answer">En los permisos fijados en días hábiles se atiende a la jornada del titular: sábados, domingos y festivos solo computan si forman parte de su jornada (Criterio DIGENPER 8/7/2026). Los permisos inician en el momento del hecho causante, salvo que ese día no sea laborable para el titular; entonces arrancan el primer día laborable.</p>
         </div>
-        <p class="fuente">ODEF 253/2015 art. 21 y 23 · Guía pág. 10</p>
+        <p class="fuente">ODEF 253/2015 art. 3 ter, 21 y 23 · Guía pág. 10</p>
+    </div>
+
+    <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow border-l-4 border-orange-300 acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
+        <span>¿Cuánto tarda el jefe en contestar? (Plazos)</span><span class="chevron text-tactical-orange text-lg">▼</span>
+    </button>
+    <div class="accordion-content">
+        <p class="mb-2 text-sm">El jefe de unidad tiene un plazo máximo para contestar cada petición. <strong class="text-tactical-orange">Si pasa el plazo y no te ha contestado, se entiende CONCEDIDO</strong> (art. 23.3).</p>
+        <p class="text-sm font-bold text-tactical-orange mt-3 mb-1">PERMISOS</p>
+        <table class="tabla-dias">
+            <tr><th>Permiso</th><th>Plazo</th></tr>
+            <tr><td>Fallecimiento, accidente, enfermedad grave, hospitalización o cirugía con reposo (familiar 1º y 2º grado)</td><td>1 día hábil</td></tr>
+            <tr><td>Nacimiento (cualquier progenitor)</td><td>1 día hábil</td></tr>
+            <tr><td>Lactancia</td><td>1 día hábil</td></tr>
+            <tr><td>Violencia de género</td><td>1 día hábil</td></tr>
+            <tr><td>Adopción, guarda o acogimiento</td><td>3 días hábiles</td></tr>
+            <tr><td>Deber inexcusable</td><td>3 días hábiles</td></tr>
+            <tr><td>Personas dependientes a cargo</td><td>3 días hábiles</td></tr>
+            <tr><td>Exámenes prenatales y preparación al parto</td><td>3 días hábiles</td></tr>
+            <tr><td>Asuntos particulares</td><td>10 días hábiles</td></tr>
+            <tr><td>Matrimonio o pareja de hecho</td><td>10 días hábiles</td></tr>
+            <tr><td>Traslado de domicilio</td><td>10 días hábiles</td></tr>
+            <tr><td>Gestación</td><td>10 días hábiles</td></tr>
+            <tr><td>Exámenes finales y pruebas de aptitud</td><td>10 días hábiles</td></tr>
+            <tr><td>Cursos de la Administración Civil o de reorientación profesional</td><td>10 días hábiles</td></tr>
+            <tr><td>Técnicas de fecundación asistida</td><td>10 días hábiles</td></tr>
+            <tr><td>Sesiones e informes previos a la adopción o acogimiento</td><td>10 días hábiles</td></tr>
+        </table>
+        <p class="text-sm font-bold text-tactical-orange mt-4 mb-1">REDUCCIONES DE JORNADA</p>
+        <table class="tabla-dias">
+            <tr><th>Reducción</th><th>Plazo</th></tr>
+            <tr><td>Enfermedad muy grave de familiar</td><td>1 día hábil</td></tr>
+            <tr><td>Hijos prematuros u hospitalizados</td><td>1 día hábil</td></tr>
+            <tr><td>Hijo con cáncer o enfermedad grave</td><td>1 día hábil</td></tr>
+            <tr><td>Guarda legal de hijo menor de 12 años</td><td>10 días hábiles</td></tr>
+            <tr><td>Cuidado de mayor o persona con discapacidad</td><td>10 días hábiles</td></tr>
+            <tr><td>Pareja en operación, despliegue o misión</td><td>10 días hábiles</td></tr>
+            <tr><td>Víctimas del terrorismo</td><td>10 días hábiles</td></tr>
+        </table>
+        <div class="faq-box">
+            <p class="faq-question">¿Y si retiro la petición?</p>
+            <p class="faq-answer">Si desistes de una petición que aún no está resuelta, el jefe debe contestar en los mismos plazos. Si no lo hace, se acepta tu desistimiento (art. 23.4).</p>
+        </div>
+        <div class="faq-box">
+            <p class="faq-question">¿Y las licencias?</p>
+            <p class="faq-answer">La unidad informa tu petición en 5 días hábiles y la manda a la autoridad competente, que tiene 1 mes para contestar. Si no contesta, también se entiende concedida (art. 24.3).</p>
+        </div>
+        <p class="fuente">ODEF 253/2015 art. 23.3, 23.4 y 24.3</p>
     </div>
 
     <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
@@ -217,7 +278,7 @@
         <span>1.5 a 1.7 Licencias y Recursos</span><span class="chevron text-tactical-orange text-lg">▼</span>
     </button>
     <div class="accordion-content">
-        <p class="mb-2"><strong>Licencias:</strong> Competencia de los Jefes de Mandos/Jefatura de Personal o DIGENPER. Plazo resolución: 1 mes.</p>
+        <p class="mb-2"><strong>Licencias:</strong> Competencia de los Jefes de Mandos/Jefatura de Personal o DIGENPER. Se piden por escrito en tu unidad, indicando fecha de inicio, lugar y duración (en la de estudios, con el justificante de matrícula). La unidad la informa en 5 días hábiles y la autoridad resuelve en 1 mes (silencio positivo).</p>
         <div class="faq-box">
             <p class="faq-question">¿Repercute la licencia en vacaciones?</p>
             <p class="faq-answer">Sí. Los periodos en licencia por asuntos propios o por estudios sin retribución NO computan para determinar los días de vacaciones anuales.</p>
@@ -239,14 +300,15 @@
         <ul class="list-disc pl-5 space-y-2">
             <li><strong>Días anuales:</strong> 22 días hábiles (sábados inhábiles).</li>
             <li><strong>Disfrute:</strong> Hasta el 31 de enero del año siguiente.</li>
-            <li><strong>Periodos:</strong> Mínimos de 5 días hábiles consecutivos. Se permite hasta 5 días hábiles sueltos/independientes.</li>
+            <li><strong>Periodos:</strong> Mínimos de 5 días hábiles consecutivos. Se permite hasta 5 días hábiles sueltos/independientes, que <strong>se pueden juntar con los días de asuntos particulares</strong>.</li>
             <li><strong>Estival:</strong> Al menos 10 días entre el 15 de junio y 15 de septiembre.</li>
             <li><strong>Antigüedad:</strong> 15 años: 23 días · 20 años: 24 · 25 años: 25 · 30 o más: 26 (desde el día siguiente al cumplimiento).</li>
             <li><strong>Extranjero:</strong> destinado o en comisión en el extranjero (sin estar desplegado en misión): <strong>+7 días naturales</strong> o la parte proporcional.</li>
             <li><strong>Parejas de militares</strong> con hijo &lt;12 años: al menos 5 días hábiles en las mismas fechas en vacaciones escolares de verano (según servicio).</li>
             <li><strong>Proporcionalidad:</strong> si el tiempo de servicio del año fue menor, los días son proporcionales.</li>
             <li><strong>Exclusiones:</strong> NO computa como tiempo para generar vacaciones: alumno de formación, licencia por asuntos propios o por estudios sin retribución, suspensión de funciones o de empleo, situaciones que suspenden la condición militar y activo sin destino o reserva sin destino (salvo comisión).</li>
-            <li><strong>No se cambian por dinero.</strong> Solo hay compensación económica si la relación de servicios termina por causa ajena a la voluntad del militar.</li>
+            <li><strong>Profesores y alumnos</strong> de centros docentes militares: las vacaciones dependen del calendario académico del centro.</li>
+            <li><strong>No se cambian por dinero.</strong> Solo hay compensación económica si la relación de servicios termina por causa ajena a la voluntad del militar (por ejemplo, retiro por incapacidad o fallecimiento, hasta un máximo de 18 meses).</li>
         </ul>
         <p class="fuente">ODEF 253/2015 art. 5 y norma 1ª anexo I · Guía pág. 16-18</p>
     </div>
@@ -294,7 +356,7 @@
     <div class="accordion-content">
         <p class="mb-2 border-b border-gray-600 pb-1"><strong>ENFERMEDAD GRAVE / CIRUGÍA REPOSO:</strong></p>
         <ul class="list-disc pl-5 space-y-1 mb-3 text-sm">
-            <li>1er Grado / Cónyuge / Conviviente: 5 días hábiles.</li>
+            <li>1er Grado / Cónyuge / Pareja de hecho / Otra persona que conviva contigo y necesite tu cuidado: 5 días hábiles.</li>
             <li>2do Grado: 4 días hábiles.</li>
             <li>+2 días hábiles si hay que desplazarse desde el extranjero (por destino), entre islas, o entre península, islas y Ceuta/Melilla.</li>
         </ul>
@@ -302,7 +364,7 @@
 
         <p class="mb-2 border-b border-gray-600 pb-1"><strong>FALLECIMIENTO:</strong></p>
         <ul class="list-disc pl-5 space-y-1 mb-3 text-sm">
-            <li>1er Grado / Cónyuge: 3 días hábiles (misma loc.), 5 días (distinta loc.).</li>
+            <li>1er Grado / Cónyuge / Pareja de hecho: 3 días hábiles (misma loc.), 5 días (distinta loc.).</li>
             <li>2do Grado: 2 días hábiles (misma loc.), 4 días (distinta loc.).</li>
         </ul>
         <div class="faq-box">
@@ -321,10 +383,11 @@
     </button>
     <div class="accordion-content">
         <ul class="list-disc pl-5 space-y-2">
-            <li><strong>Mudanza:</strong> 1 día por traslado de domicilio en la misma localidad.</li>
+            <li><strong>Mudanza:</strong> 1 día por traslado de domicilio en la misma localidad. Si la mudanza es por un <strong>cambio de destino</strong>, los días son los del Reglamento de destinos (RD 456/2011, art. 24).</li>
             <li><strong>Deber Inexcusable:</strong> Tiempo mínimo indispensable (juicios, votar, requerimientos de Hacienda u otras administraciones, consultas médicas con familiares a cargo). Es residual: solo si no hay otro permiso que cubra el caso. <strong class="text-tactical-orange">NO pueden denegarlo</strong> alegando que te quedan días de vacaciones.</li>
             <li><strong>Competición Oficial:</strong> Días necesarios para competiciones oficiales internacionales y sus concentraciones preparatorias (deportistas de alto nivel acreditados).</li>
         </ul>
+        <p class="fuente">ODEF 253/2015 art. 6.c, 6.g y 6.h · norma 4ª anexo I</p>
     </div>
 </section>
 
@@ -362,6 +425,20 @@
                 Si el bebé fallece tras 180 días de gestación, el permiso se mantiene íntegro (salvo que la madre pida alta voluntaria tras las 6 sem).
             </p>
         </div>
+        <div class="faq-box">
+            <p class="faq-question">¿Puedo cogerlo a tiempo parcial?</p>
+            <p class="faq-answer">Sí, las semanas voluntarias (no las 6 obligatorias), si el jefe de unidad lo autoriza tras comprobar que el servicio queda cubierto. El permiso se alarga en proporción, sin pasar nunca de su duración total. Se disfruta de forma seguida y <strong>no se puede tener a la vez reducción de jornada ni flexibilidad horaria</strong> (art. 7.h).</p>
+        </div>
+        <div class="faq-box">
+            <p class="faq-question">¿Pueden aplazarme las 2 últimas semanas?</p>
+            <p class="faq-answer">Solo si los dos progenitores están en la misma unidad (UCO), piden las mismas fechas y eso altera seriamente el servicio. El jefe debe ofrecer antes otra alternativa más flexible y justificarlo por escrito.</p>
+        </div>
+        <ul class="list-disc pl-5 space-y-2 mt-3 text-sm">
+            <li><strong>Cuenta como servicio:</strong> todo el tiempo de permiso computa como servicio efectivo y se mantienen todos los derechos económicos. Al terminar, tienes derecho a <strong>volver a tu puesto</strong> en condiciones no peores (norma 7ª ter).</li>
+            <li><strong>Cursos:</strong> pasadas las 6 semanas obligatorias, puedes hacer cursos de formación durante el permiso.</li>
+            <li><strong>Misión internacional:</strong> si por necesidades del servicio no pudiste disfrutarlo por estar comisionado en el exterior, lo disfrutas a la vuelta.</li>
+        </ul>
+        <p class="fuente">ODEF 253/2015 art. 7.e, 7.f y 7.h · normas 6ª, 7ª y 7ª ter anexo I</p>
     </div>
 
     <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
@@ -379,13 +456,14 @@
     </div>
 
     <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow border-l-4 border-orange-300 acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
-        <span>Permiso de Gestación (Art 4.10)</span><span class="chevron text-tactical-orange text-lg">▼</span>
+        <span>Permiso de Gestación (Art. 7.i)</span><span class="chevron text-tactical-orange text-lg">▼</span>
     </button>
     <div class="accordion-content">
         <ul class="list-disc pl-5 space-y-2">
             <li>Desde el primer día de la <strong>semana 37</strong> de embarazo hasta el día del parto.</li>
             <li>Gestación Múltiple: Desde el primer día de la <strong>semana 35</strong>.</li>
         </ul>
+        <p class="fuente">ODEF 253/2015 art. 7.i y norma 9ª anexo I</p>
     </div>
 
     <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
@@ -394,8 +472,9 @@
     <div class="accordion-content">
         <p class="text-sm font-bold text-tactical-orange mb-1">LACTANCIA (Menores 12 meses):</p>
         <ul class="list-disc pl-5 space-y-2 mb-3 text-sm">
-            <li><strong>Diaria:</strong> 1 hora de ausencia. Exonera de guardias concurrentes. Compatible con jornada de verano.</li>
-            <li><strong>Acumulada:</strong> Jornadas completas. Inicia tras acabar permiso de nacimiento y decae cuando el menor cumple 12 meses. No se puede fraccionar.</li>
+            <li><strong>Diaria:</strong> 1 hora de ausencia, que se puede partir en <strong>media hora al entrar y media hora al salir</strong>. Exonera de guardias concurrentes. Compatible con jornada de verano y con la reducción por guarda legal (la hora de lactancia no cuenta para el descuento de sueldo).</li>
+            <li><strong>Parto, adopción o acogimiento múltiple:</strong> el permiso aumenta en proporción.</li>
+            <li><strong>Acumulada:</strong> Jornadas completas. Inicia tras acabar permiso de nacimiento y decae cuando el menor cumple 12 meses. No se puede fraccionar. La exoneración de guardias se acaba cuando terminan esas jornadas acumuladas.</li>
             <li>Solo se puede elegir una modalidad, sin alternar entre ambas. Derecho individual: pueden disfrutarlo ambos progenitores a la vez.</li>
         </ul>
 
@@ -404,7 +483,9 @@
             <li>Hasta 8 semanas continuas/discontinuas.</li>
             <li>Hasta los 8 años del menor.</li>
             <li><strong class="text-red-400">NO ES RETRIBUIDO</strong>. Requiere preaviso de 15 días.</li>
+            <li>Se pide por semanas completas, a tiempo completo o parcial. Es individual y no se puede pasar al otro progenitor.</li>
         </ul>
+        <p class="fuente">ODEF 253/2015 art. 7.g y 7.j · norma 8ª anexo I</p>
     </div>
 </section>
 
@@ -414,7 +495,22 @@
 
     <div class="bg-gray-800 p-3 rounded mb-4 border-l-4 border-tactical-orange mt-4">
         <p class="text-sm font-bold">NOTA GENERAL Y EXONERACIONES (Art. 9):</p>
-        <p class="text-xs text-gray-300 mt-1">La exoneración de guardias es accesoria y vigente en días hábiles, inhábiles y festivos.</p>
+        <p class="text-xs text-gray-300 mt-1">La exoneración de guardias es accesoria y vigente en días hábiles, inhábiles y festivos. Solo harás actividades dentro del horario habitual de tu unidad, menos la reducción concedida.</p>
+    </div>
+
+    <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
+        <span>Normas Comunes a Todas las Reducciones</span><span class="chevron text-tactical-orange text-lg">▼</span>
+    </button>
+    <div class="accordion-content text-sm">
+        <ul class="list-disc pl-5 space-y-2">
+            <li><strong>Turnos:</strong> si trabajas a turnos, la reducción se aplica sobre tu turno (mañana, tarde o noche).</li>
+            <li><strong>Por debajo del mínimo:</strong> si necesitas reducir menos del mínimo de cada caso, se atiende con flexibilidad horaria.</li>
+            <li><strong>Renuncias repetidas:</strong> si renuncias y vuelves a pedirla una y otra vez para que coincida con vacaciones, festivos, jornadas especiales o comisiones ya asignadas, el jefe puede denegarla.</li>
+            <li><strong>Cambios familiares:</strong> cualquier cambio que afecte a la reducción debes comunicarlo y justificarlo a tu jefe. Si no lo haces tras pedírtelo, te la pueden quitar.</li>
+            <li><strong>Por escrito:</strong> el jefe fija el horario, las horas de reducción, el porcentaje de descuento de sueldo y si te libra o no de guardias. Esas condiciones pueden cambiar si cambian las necesidades del servicio, avisándote por escrito.</li>
+            <li><strong>Sueldo:</strong> el descuento se calcula con las fórmulas del Anexo II y también se aplica en vacaciones y asuntos particulares. <button type="button" class="text-tactical-orange underline font-bold" onclick="irACalcSueldo()">Calcula tu sueldo con reducción ❯</button></li>
+        </ul>
+        <p class="fuente">ODEF 253/2015 art. 9 y 22</p>
     </div>
 
     <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
@@ -422,9 +518,9 @@
     </button>
     <div class="accordion-content text-sm">
         <ul class="list-disc pl-5 space-y-3">
-            <li><strong>Enfermedad Muy Grave (Fam 1º):</strong> Máximo 1 mes. Reducción hasta 50%. <strong class="text-green-400">SIN merma de sueldo</strong>. Exonera guardias directamente.</li>
+            <li><strong>Enfermedad Muy Grave (Fam 1º):</strong> Máximo 1 mes. Reducción hasta 50%. <strong class="text-green-400">SIN merma de sueldo</strong>. Exonera guardias directamente. Si varios militares tienen derecho por el mismo familiar, pueden repartirse el mes, pero <strong>solo uno</strong> queda libre de guardias.</li>
             <li><strong>Pareja en Misión:</strong> 1h a 1/2 jornada (con merma). Exonera directamente guardias si se tiene hijo <12 años.</li>
-            <li><strong>Discapacidad y Mayores:</strong>
+            <li><strong>Discapacidad y Mayores:</strong> 1 h a 1/2 jornada (con merma). La persona a tu cargo no debe tener un trabajo pagado (cobrar una pensión no cuenta como trabajo).
                 <br>Discapacidad: Exonera directamente.
                 <br>Mayores/Familiar enfermo: Exoneración supeditada al servicio.
             </li>
@@ -434,10 +530,13 @@
                     <li>De 4 a 12 años: Supeditado al servicio.</li>
                     <li>Monoparental: Exonera directo.</li>
                     <li>Destino forzoso del cónyuge: Exonera directo (1 año).</li>
+                    <li>Custodia compartida: solo durante los periodos en que tienes al menor.</li>
+                    <li>Si te llega el permiso por nacimiento, la reducción se para y cobras el sueldo entero mientras dure el permiso.</li>
                 </ul>
             </li>
             <li><strong>Hijos Prematuros / Hospitalizados:</strong> Mientras dure la hospitalización: hasta <strong class="text-green-400">2 h diarias SIN merma</strong> + otras 2 h adicionales con reducción proporcional de sueldo. Exonera directo.</li>
-            <li><strong>Cáncer / Enfermedad Grave del hijo:</strong> Al menos 50% de jornada. Requiere que <strong>ambos progenitores trabajen</strong>. <strong class="text-green-400">Sueldo ÍNTEGRO</strong> solo para uno de ellos; el otro, si también reduce, cobra en proporción. Hasta los 23 años (26 si discapacidad ≥65% antes de los 23). Exonera directo.</li>
+            <li><strong>Cáncer / Enfermedad Grave del hijo:</strong> Al menos 50% de jornada. Requiere que <strong>ambos progenitores trabajen</strong>. <strong class="text-green-400">Sueldo ÍNTEGRO</strong> solo para uno de ellos; el otro, si también reduce, cobra en proporción. Hasta los 23 años (26 si discapacidad ≥65% antes de los 23). Exonera directo. Si los dos progenitores trabajan en el mismo organismo, pueden limitar que la disfruten a la vez. Si el hijo enfermo se casa o forma pareja de hecho, puede pedirla su cónyuge o pareja.</li>
+            <li><strong>Víctimas del terrorismo:</strong> 1 h a 1/2 jornada (con merma). Exoneración supeditada al servicio.</li>
         </ul>
         <p class="fuente">ODEF 253/2015 art. 10-16 · Guía pág. 44-51</p>
     </div>
@@ -464,6 +563,7 @@
             <li>Guarda legal hijo 4 a 12 años (caso estándar).</li>
             <li>Reducción de jornada para víctimas del terrorismo.</li>
         </ul>
+        <p class="aviso-jefe"><strong class="text-tactical-orange">OJO:</strong> «Directa» quiere decir que no depende del servicio al concederla, pero <strong>no es intocable</strong>. Si surgen necesidades nuevas del servicio, el jefe puede reconsiderar la exoneración de forma motivada, avisándote lo antes posible y por escrito (art. 9.3).</p>
         <p class="text-xs font-bold bg-gray-700 p-2 rounded text-white text-center shadow-inner mt-4">
             NOTA LEGAL CLAVE: "La normativa NO CONTEMPLA la obligación de recuperar las guardias, servicios o maniobras no realizadas durante los periodos de exoneración."
         </p>
@@ -485,8 +585,10 @@
             <li>Máximo 90 días naturales en un periodo de 2 años efectivos (desde la 1ª licencia).</li>
             <li>Si es por enfermedad grave de familiar 1º: 90 días CADA AÑO.</li>
             <li>Sin retribución.</li>
-            <li>Fraccionable (pero excluir sistemáticamente días no laborables es abuso de derecho).</li>
+            <li>Los 90 días se pueden repartir en varias licencias, pero <strong>cada licencia se disfruta de forma seguida</strong> (art. 24.5). Excluir sistemáticamente los días no laborables es abuso de derecho.</li>
+            <li>No computa como tiempo para generar vacaciones.</li>
         </ul>
+        <p class="fuente">ODEF 253/2015 art. 17, 18 y 24</p>
     </div>
     <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
         <span>6.2 Por Estudios</span><span class="chevron text-tactical-orange text-lg">▼</span>
@@ -496,7 +598,10 @@
             <li><strong>Motivos:</strong> Capacitación para el puesto o reincorporación vida civil (MTM temp y complemento).</li>
             <li><strong>Tipos:</strong> A) 40 horas hábiles (cobrando básicas). B) 90 días/3 meses (sin retribución).</li>
             <li><strong>Límite:</strong> SOLO UNA al año natural.</li>
+            <li><strong>Cómo:</strong> por escrito en tu unidad, con fecha de inicio, lugar, duración, características de los estudios y justificante de matrícula. Contestan en 1 mes como máximo.</li>
+            <li>Una vez concedida, si surgen necesidades del servicio te pueden ordenar volver al destino.</li>
         </ul>
+        <p class="fuente">ODEF 253/2015 art. 19 y 24</p>
     </div>
 </section>
 
@@ -508,7 +613,7 @@
     </button>
     <div class="accordion-content">
         <ul class="list-disc pl-5 space-y-2">
-            <li><strong>Exámenes:</strong> Tiempo indispensable. Incluye el viaje si el examen es *obligatoriamente* fuera de la localidad (no por opción tuya).</li>
+            <li><strong>Exámenes:</strong> Tiempo indispensable. Incluye el viaje si el examen es <em>obligatoriamente</em> fuera de la localidad (no por opción tuya). Si empezaste los estudios <strong>antes</strong> de llegar a tu destino actual, también tienes derecho al tiempo del viaje.</li>
             <li><strong>Cursos:</strong> Para capacitación del puesto o reorientación profesional.</li>
         </ul>
     </div>
@@ -636,10 +741,10 @@
     </div>
 
     <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mt-4 mb-1 shadow border-l-4 border-orange-300 acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
-        <span>Anexo I (ET): Criterios de Concesión por Actividad</span><span class="chevron text-tactical-orange text-lg">▼</span>
+        <span>Orientaciones del ET: Descansos por Actividad</span><span class="chevron text-tactical-orange text-lg">▼</span>
     </button>
     <div class="accordion-content">
-        <p class="text-xs text-gray-300 mb-3">Orientaciones del Ejército de Tierra para aplicar la ODEF 1363/2016 en jornadas y horario. <strong>DO</strong> = Descanso Obligatorio · <strong>DA</strong> = Descanso Adicional · <strong>DPP</strong> = Descanso Por Preparación · <strong>JEUCO</strong> = Jefe de Unidad, Centro u Organismo · <strong>BAE</strong> = Base, Acuartelamiento o Establecimiento.</p>
+        <p class="text-xs text-gray-300 mb-3">Orientaciones del Ejército de Tierra para aplicar la ODEF 1363/2016 en jornadas y horario (es su «Anexo I»; <strong>no confundir</strong> con el Anexo I de la Orden DEF/253/2015, que es la tabla de días de permisos). <strong>DO</strong> = Descanso Obligatorio · <strong>DA</strong> = Descanso Adicional · <strong>DPP</strong> = Descanso Por Preparación · <strong>JEUCO</strong> = Jefe de Unidad, Centro u Organismo · <strong>BAE</strong> = Base, Acuartelamiento o Establecimiento.</p>
 
         <div class="bg-gray-700 p-3 rounded mb-2">
             <p class="font-bold text-tactical-orange text-sm mb-1">Guardias "On Call" (sin permanencia ni activación en la BAE)</p>
@@ -809,6 +914,48 @@
             <li>Aplazamiento de Comisiones en el exterior (Punto 11.3).</li>
             <li>Reducción Jornada y exoneración de guardias para quien se queda a cargo de menores si la pareja despliega (Punto 5.2).</li>
             <li>Descansos acumulables post-misión (Punto 10.4).</li>
+            <li><strong>Permiso por nacimiento o adopción:</strong> si por estar comisionado en una misión internacional no pudiste disfrutarlo, lo disfrutas a la vuelta, sin perder el resto de permisos (normas 6ª, 7ª y 7ª bis del Anexo I).</li>
+            <li><strong>Vacaciones y asuntos particulares:</strong> si no pudiste cogerlos en el año por razones operativas justificadas, puedes disfrutarlos en el primer semestre del año siguiente (art. 5.8 y 6.a).</li>
+            <li>La concesión y disfrute de permisos durante operaciones en el exterior los regula el JEMAD (disposición final cuarta).</li>
+        </ul>
+        <p class="fuente">ODEF 253/2015 art. 5.8, 6.a, 11 y disp. final 4ª · normas 6ª, 7ª y 7ª bis anexo I</p>
+    </div>
+</section>
+
+<!-- PANTALLA ANEXO I (ODEF 253/2015) -->
+<section id="pantalla_anexo" class="pantalla-detalle hidden p-4 fade-in">
+    <h2 class="sticky-section-header text-tactical-orange text-xl font-bold mb-4 border-b border-orange-500 pb-2">ANEXO I: TABLA RÁPIDA DE DÍAS</h2>
+    <div class="bg-gray-800 p-3 rounded mb-4 border-l-4 border-tactical-orange mt-4">
+        <p class="text-xs text-gray-300">La Orden DEF/253/2015 dice <strong>quién</strong> tiene derecho a cada permiso y en qué condiciones (los artículos). Su <strong>Anexo I</strong> dice <strong>cuántos días</strong> corresponden. Cuando en la guía leas «norma 3ª anexo I», se refiere a esta tabla. Toca una fila para ver el detalle.</p>
+    </div>
+
+    <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
+        <span>Normas 1ª a 9ª del Anexo I</span><span class="chevron text-tactical-orange text-lg">▼</span>
+    </button>
+    <div class="accordion-content">
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla2')"><span><span class="norma">Norma 1ª</span>Vacaciones</span><span class="dias">22 días hábiles (23 a 26 por antigüedad) ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla3')"><span><span class="norma">Norma 2ª</span>Asuntos particulares</span><span class="dias">6 días (+2 desde el 6º trienio, +1 por trienio desde el 8º) ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla3')"><span><span class="norma">Norma 3ª</span>Accidente, enfermedad grave, hospitalización o cirugía con reposo</span><span class="dias">1er grado: 5 días hábiles · 2º grado: 4 (+2 por desplazamiento especial) ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla3')"><span><span class="norma">Norma 3ª bis</span>Fallecimiento</span><span class="dias">1er grado: 3 o 5 días hábiles · 2º grado: 2 o 4 (+2 por desplazamiento especial) ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla3')"><span><span class="norma">Norma 4ª</span>Traslado de domicilio</span><span class="dias">1 día (misma localidad) ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla4')"><span><span class="norma">Norma 5ª</span>Matrimonio o pareja de hecho</span><span class="dias">15 días naturales ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla4')"><span><span class="norma">Norma 6ª</span>Nacimiento (madre biológica)</span><span class="dias">19 semanas (32 monoparental) ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla4')"><span><span class="norma">Norma 7ª</span>Nacimiento (otro progenitor)</span><span class="dias">19 semanas (32 monoparental) ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla4')"><span><span class="norma">Norma 7ª bis</span>Adopción, guarda o acogimiento</span><span class="dias">19 semanas por adoptante (32 monoparental) ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla4')"><span><span class="norma">Norma 7ª ter</span>Derechos durante estos permisos</span><span class="dias">Cuentan como servicio y vuelves a tu puesto ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla4')"><span><span class="norma">Norma 8ª</span>Lactancia (hijo menor de 12 meses)</span><span class="dias">1 h diaria o jornadas acumuladas ❯</span></button>
+        <button type="button" class="fila-enlace" onclick="abrirPantalla('pantalla4')"><span><span class="norma">Norma 9ª</span>Gestación</span><span class="dias">Desde la semana 37 (35 si es múltiple) ❯</span></button>
+        <p class="fuente">Orden DEF/253/2015, Anexo I · Texto consolidado BOE-A-2015-1620 (última modificación: 31/07/2026)</p>
+    </div>
+
+    <button class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
+        <span>Los Otros Anexos: ¿Cuál es Cuál?</span><span class="chevron text-tactical-orange text-lg">▼</span>
+    </button>
+    <div class="accordion-content">
+        <ul class="list-disc pl-5 space-y-2 text-sm">
+            <li><strong>Anexo I de la Orden DEF/253/2015:</strong> la tabla de días de vacaciones y permisos (esta pantalla).</li>
+            <li><strong>Anexo II de la Orden DEF/253/2015:</strong> cómo se calcula el descuento de sueldo con reducción de jornada. <button type="button" class="text-tactical-orange underline font-bold" onclick="irACalcSueldo()">Ir a la calculadora ❯</button></li>
+            <li><strong>«Anexo I» de las orientaciones del ET (ODEF 1363/2016):</strong> es otro documento distinto, sobre los descansos tras guardias y actividades. Está en la pantalla 10.</li>
         </ul>
     </div>
 </section>
@@ -898,12 +1045,59 @@
         <p class="fuente">ODEF 253/2015 norma 8ª anexo I · Guía pág. 38-42</p>
     </div>
 
+    <!-- CALC 5: SUELDO CON REDUCCIÓN DE JORNADA (ANEXO II ODEF 253/2015) -->
+    <button id="btnCalcSueldo" class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
+        <span>Sueldo con Reducción de Jornada</span><span class="chevron text-tactical-orange text-lg">▼</span>
+    </button>
+    <div class="accordion-content">
+        <p class="text-xs text-gray-300 mb-2">Con las fórmulas del Anexo II de la Orden DEF/253/2015. Pon las cantidades en bruto (íntegras), tal como salen en tu nómina.</p>
+        <label class="calc-label" for="csSueldo">Retribuciones íntegras del mes (€ brutos, sin la paga extra)</label>
+        <input type="number" id="csSueldo" class="calc-input" min="0" step="0.01" inputmode="decimal" placeholder="Ej: 1850" oninput="calcSueldo()">
+        <label class="calc-label" for="csHoras">Horas de tu jornada diaria (horario general)</label>
+        <select id="csHoras" class="calc-input" onchange="calcSueldo()">
+            <option value="7">7 h (jornada general, 35 h/semana)</option>
+            <option value="7.5">7,5 h (especial dedicación, 37,5 h/semana)</option>
+        </select>
+        <label class="calc-label" for="csReduce">Horas que reduces cada día</label>
+        <input type="number" id="csReduce" class="calc-input" min="0" step="0.25" value="1" inputmode="decimal" oninput="calcSueldo()">
+        <label class="calc-label" for="csDiasMes">Días naturales del mes</label>
+        <select id="csDiasMes" class="calc-input" onchange="calcSueldo()">
+            <option value="31">31 días</option>
+            <option value="30" selected>30 días</option>
+            <option value="29">29 días</option>
+            <option value="28">28 días</option>
+        </select>
+        <label class="flex items-start gap-2 mt-3 text-sm">
+            <input type="checkbox" id="csExonera" class="mt-1" checked onchange="calcSueldo()">
+            <span>Estoy exonerado de guardias, servicios y maniobras</span>
+        </label>
+        <div id="csGuardiasWrap" class="hidden">
+            <label class="calc-label" for="csGuardias">Días del mes con guardias o actividades fuera de horario, más sus días de descanso</label>
+            <input type="number" id="csGuardias" class="calc-input" min="0" value="0" inputmode="numeric" oninput="calcSueldo()">
+        </div>
+        <div id="csResultado" class="calc-resultado"></div>
+
+        <p class="text-sm font-bold text-tactical-orange mt-4">Paga extra (opcional)</p>
+        <label class="calc-label" for="csPaga">Importe íntegro de la paga extra sin reducción (€ brutos)</label>
+        <input type="number" id="csPaga" class="calc-input" min="0" step="0.01" inputmode="decimal" placeholder="Ej: 1200" oninput="calcSueldo()">
+        <label class="calc-label" for="csPagaTipo">¿Qué paga?</label>
+        <select id="csPagaTipo" class="calc-input" onchange="calcSueldo()">
+            <option value="182">Junio: cuenta de diciembre a mayo (182 días)</option>
+            <option value="183b">Junio en año bisiesto (183 días)</option>
+            <option value="183">Diciembre: cuenta de junio a noviembre (183 días)</option>
+        </select>
+        <label class="calc-label" for="csDiasRed">Días naturales con reducción en esos 6 meses</label>
+        <input type="number" id="csDiasRed" class="calc-input" min="0" max="183" value="0" inputmode="numeric" oninput="calcSueldo()">
+        <div id="csPagaResultado" class="calc-resultado hidden"></div>
+        <p class="fuente">ODEF 253/2015 art. 22.5-22.6 y Anexo II</p>
+    </div>
+
     <!-- CALC 4: DESCANSOS POR GUARDIAS Y ACTIVIDADES (ANEXO I ET) -->
     <button id="btnCalcDescansos" class="w-full text-left bg-tactical-purple p-3 rounded font-bold uppercase mb-1 shadow acordeon-btn flex justify-between items-center" onclick="toggleAccordion(this)">
         <span>Descansos por Guardias y Actividades</span><span class="chevron text-tactical-orange text-lg">▼</span>
     </button>
     <div class="accordion-content">
-        <p class="text-xs text-gray-300 mb-2">Según el Anexo I del ET (ODEF 1363/2016). Calcula el DO, el DA o el DPP que genera cada actividad y lleva la cuenta del tope anual de 10 días.</p>
+        <p class="text-xs text-gray-300 mb-2">Según las orientaciones del ET para aplicar la ODEF 1363/2016. Calcula el DO, el DA o el DPP que genera cada actividad y lleva la cuenta del tope anual de 10 días.</p>
         <label class="calc-label" for="cdTipo">Actividad</label>
         <select id="cdTipo" class="calc-input" onchange="calcDescansos()">
             <option value="g24">Guardia de 24h o más con permanencia en BAE</option>
@@ -955,7 +1149,7 @@
             <li>Real Decreto 456/2011 (Reglamento de destinos).</li>
             <li>Real Decreto 1111/2015 (Situaciones administrativas).</li>
             <li>Orden Ministerial 76/2011 (Destinos y comisiones de servicio).</li>
-            <li>Orden DEF/253/2015 (Vacaciones, permisos y licencias).</li>
+            <li>Orden DEF/253/2015 (Vacaciones, permisos y licencias). <a class="text-tactical-orange underline" href="https://www.boe.es/buscar/act.php?id=BOE-A-2015-1620" target="_blank" rel="noopener noreferrer">Texto consolidado en el BOE</a> (última modificación: 31/07/2026).</li>
             <li>Orden DEF/1363/2016 (Jornada y horario habitual).</li>
             <li>Orden DEF/111/2019 (Observatorio Militar para la Igualdad).</li>
             <li>Resolución de 14 de abril de 2026, SEFP (jornada y horarios AGE).</li>
@@ -967,7 +1161,7 @@
             <li>Correo: <a class="text-tactical-orange underline" href="mailto:omigualdad@oc.mde.es">omigualdad@oc.mde.es</a></li>
             <li>Teléfono (consultas urgentes): <a class="text-tactical-orange underline" href="tel:+34913246431">91 324 64 31</a></li>
         </ul>
-        <p class="text-xs text-gray-400 mb-4">Contenido revisado con la guía de 2026. Última revisión: noviembre de 2026.</p>
+        <p class="text-xs text-gray-400 mb-4">Contenido revisado con la guía de 2026 y con el texto consolidado de la Orden DEF/253/2015. Última revisión: noviembre de 2026.</p>
         <h3 class="text-tactical-orange font-bold mb-2 uppercase border-t border-gray-600 pt-3">Exención de Responsabilidad</h3>
         <p class="text-justify leading-relaxed text-xs">
             Esta aplicación es una herramienta informática de apoyo divulgativo editada por <strong>Academia AJ</strong>.
@@ -1606,6 +1800,83 @@
         document.getElementById('cdContador').innerHTML = html;
     }
 
+    // 7.5 Sueldo con reducción de jornada (Anexo II ODEF 253/2015)
+    function euros(n) {
+        return n.toLocaleString('es-ES', { style: 'currency', currency: 'EUR', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+    function decimal(n) { return String(Math.round(n * 100) / 100).replace('.', ','); }
+
+    function calcSueldo() {
+        const ri = numero('csSueldo', 0);                       // RI: retribuciones íntegras mensuales
+        const hg = parseFloat(document.getElementById('csHoras').value); // Hg: horas diarias (horario general)
+        const hr = numero('csReduce', 0);                       // Hr: horas de reducción al día
+        const mDias = parseInt(document.getElementById('csDiasMes').value, 10); // M: días naturales del mes
+        const exonera = document.getElementById('csExonera').checked;
+        document.getElementById('csGuardiasWrap').classList.toggle('hidden', exonera);
+        const res = document.getElementById('csResultado');
+        const notas = [];
+        let html = '';
+        let valido = false;
+
+        if (hr <= 0) {
+            html = '<p class="text-sm">Indica cuántas horas reduces al día.</p>';
+        } else if (hr >= hg) {
+            html = '<p class="text-sm text-red-400">Las horas de reducción deben ser menos que tu jornada diaria (' + decimal(hg) + ' h).</p>';
+        } else if (ri <= 0) {
+            html = '<p class="text-sm">Pon tus retribuciones íntegras del mes para ver el descuento.</p>'
+                + filaResultado('Porcentaje de reducción', decimal(hr / hg * 100) + ' %');
+        } else {
+            valido = true;
+            const vh = (ri / mDias) / hg;                           // v/h = (RI/M)/Hg
+            let diasCuentan = mDias;
+            if (!exonera) {
+                const g = Math.min(mDias, Math.max(0, Math.round(numero('csGuardias', 0))));
+                diasCuentan = mDias - g;                            // m = M − días de guardia y sus descansos
+            }
+            const dri = vh * diasCuentan * hr;                      // DRI = v/h × M (o m) × Hr
+            html += '<p class="calc-total">' + euros(ri - dri) + ' <span>brutos al mes (aprox.)</span></p>';
+            html += filaResultado('Retribuciones íntegras', euros(ri));
+            html += filaResultado('Valor de 1 hora (' + euros(ri) + ' ÷ ' + mDias + ' días ÷ ' + decimal(hg) + ' h)', euros(vh));
+            html += filaResultado('Descuento (' + euros(vh) + ' × ' + diasCuentan + ' días × ' + decimal(hr) + ' h)', '− ' + euros(dri));
+            html += filaResultado('Porcentaje que se descuenta', decimal(dri / ri * 100) + ' %');
+            if (!exonera) notas.push('Sin exoneración no te descuentan los días en que haces guardias, servicios o maniobras fuera de horario, ni sus días de descanso.');
+        }
+
+        notas.push('<strong>Reducciones SIN descuento de sueldo:</strong> enfermedad muy grave de familiar, las 2 primeras horas por hijo prematuro u hospitalizado, cuidado de hijo con cáncer o enfermedad grave (cobro íntegro para uno de los progenitores) y violencia de género si reduces 1/3 o menos. En esos casos no uses este cálculo.');
+        notas.push('Los complementos de dedicación especial y productividad dependen de la autoridad que los concede. El descuento también se aplica en vacaciones y asuntos particulares.');
+        notas.push('Resultado orientativo y en bruto (antes de impuestos y cotizaciones). El cálculo oficial lo hace tu unidad.');
+        html += '<ul class="list-disc pl-5 space-y-1 text-xs text-gray-300 mt-2">' + notas.map(n => '<li>' + n + '</li>').join('') + '</ul>';
+        res.innerHTML = html;
+
+        // Paga extraordinaria: Pn = (RIpe/k) × D ; Pa = (RIpe reducida/k) × d
+        const resPaga = document.getElementById('csPagaResultado');
+        const ripe = numero('csPaga', 0);
+        const tipoPaga = document.getElementById('csPagaTipo').value;
+        const k = tipoPaga === '182' ? 182 : 183;
+        const campoD = document.getElementById('csDiasRed');
+        if (!valido || ripe <= 0) { resPaga.classList.add('hidden'); return; }
+        const d = Math.min(k, Math.max(0, Math.round(numero('csDiasRed', 0))));
+        if (parseFloat(campoD.value) > k) campoD.value = k;
+        const dSin = k - d;
+        const pn = ripe / k * dSin;
+        const pa = ripe * (1 - hr / hg) / k * d;
+        let hp = '<p class="calc-total">' + euros(pn + pa) + ' <span>paga extra brutos (aprox.)</span></p>';
+        hp += filaResultado('Sin reducción: ' + euros(ripe) + ' ÷ ' + k + ' × ' + dSin + ' días', euros(pn));
+        hp += filaResultado('Con reducción: ' + euros(ripe) + ' × ' + decimal((1 - hr / hg) * 100) + ' % ÷ ' + k + ' × ' + d + ' días', euros(pa));
+        hp += filaResultado('Diferencia con la paga entera', '− ' + euros(ripe - pn - pa));
+        hp += '<ul class="list-disc pl-5 space-y-1 text-xs text-gray-300 mt-2"><li>La paga se divide en los días sin reducción (cobrados enteros) y los días con reducción (cobrados en proporción a tu jornada).</li></ul>';
+        resPaga.innerHTML = hp;
+        resPaga.classList.remove('hidden');
+    }
+
+    function irACalcSueldo() {
+        abrirPantalla('pantalla_calc');
+        const btn = document.getElementById('btnCalcSueldo');
+        cambiarAcordeon(btn, true);
+        actualizarBotonExpandir();
+        btn.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
     function irACalcDescansos() {
         abrirPantalla('pantalla_calc');
         const btn = document.getElementById('btnCalcDescansos');
@@ -1626,6 +1897,7 @@
         calcFamiliar();
         calcNacimiento();
         calcLactancia();
+        calcSueldo();
     }
 
     // 8. INSTALACIÓN COMO APP (PWA): solo se activa publicada en un servidor https
