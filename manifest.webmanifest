@@ -1,6 +1,6 @@
 {
-  "name": "Guía Conciliación - Academia AJ",
-  "short_name": "Conciliación AJ",
+  "name": "Guía Conciliación",
+  "short_name": "Conciliación",
   "description": "Guía de medidas de conciliación en las FAS (2026) con calculadoras de permisos.",
   "lang": "es",
   "start_url": "./index.html",
