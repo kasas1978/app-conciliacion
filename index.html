@@ -696,6 +696,7 @@
             <li><strong>2 Horas Diarias Flex:</strong> Hijos con discapacidad (para coordinar con sus centros educativos, sanitarios o sociales) o, excepcionalmente, autorización del Jefe de Unidad por conciliación o familia monoparental.</li>
             <li><strong>Adaptación Quimio/Radioterapia:</strong> Adaptación progresiva de hasta el 25% de la jornada diaria durante 1 mes desde el alta, ampliable 1 mes más si se justifica. Cuenta como trabajo efectivo. El jefe resuelve en 3 días.</li>
             <li>La flexibilidad <strong>no reduce sueldo</strong> (se cumple la jornada completa) y puede pedirse solo para algunos días de la semana.</li>
+            <li><strong>Familia lejos del destino (Ejército de Tierra):</strong> si tu familia vive en otra localidad y la distancia no te permite incorporarte a tiempo, puedes tener un horario distinto el lunes, el viernes o ambos, completando las horas semanales el resto de la semana (sin contar la comida). Siempre que lo permitan las necesidades del servicio; lo conceden los Mandos de Primer Nivel. <span class="text-gray-400">(Orientaciones ET ODEF 1363/2016, apdo. 6)</span></li>
         </ul>
         <p class="fuente">ODEF 1363/2016 art. 7-9 · Guía pág. 67-72</p>
     </div>
@@ -753,7 +754,7 @@
                 <li>Autoridad: JEUCO · Límite máximo anual: no fijado</li>
                 <li>Cuándo: cuando lo determine el JEUCO</li>
             </ul>
-            <p class="fuente">Art. 7.c OM · OR. ET. 8.c · Reflejado en LNRI</p>
+            <p class="fuente">OR. ET. 7.c (si hay activación, se aplica el 8.b) · Reflejado en LNRI</p>
         </div>
 
         <div class="bg-gray-700 p-3 rounded mb-2">
@@ -818,6 +819,19 @@
             <p class="fuente">Disposición Final Segunda OM · OR. ET. 9.b · Reflejado en órdenes específicas</p>
         </div>
 
+        <div class="faq-box mt-3">
+            <p class="faq-question">Otras reglas de las Orientaciones ET</p>
+            <ul class="list-disc pl-5 space-y-1 text-xs text-gray-200">
+                <li><strong>Días completos:</strong> los descansos se cuentan siempre en días de trabajo enteros, sin fracciones. Los DA y DPP no se cambian por reducciones de jornada (7.d y 7.e).</li>
+                <li><strong>JIC dentro de un ejercicio más largo:</strong> no genera DO; se aplica el DPP del ejercicio (8.c).</li>
+                <li><strong>Actividad extraordinaria en tu misma guarnición:</strong> el JEUCO puede concederte descanso como en la prolongación de jornada (8.f).</li>
+                <li><strong>No cuentan en el tope de 10 DA:</strong> los de guardias &lt;24h, prolongación de jornada y actividades en la misma guarnición (8.b, 8.e y 8.f). Los DPP tienen su propio tope de 10 (9.b).</li>
+                <li><strong>Periodos de baja actividad:</strong> verano (16 jun–15 sep), Semana Santa, Navidad, fiestas locales y regionales, y los que fije el JEUCO con aprobación de su escalón superior (7.f).</li>
+                <li><strong>Misiones permanentes</strong> (p. ej. destacamentos en Islas y Peñones): dan DPP salvo que su Orden de Generación diga otra cosa. Adiestramiento previo a un despliegue: lo fija el Mando de Primer Nivel en la Orden de Generación o Relevo; operaciones en el exterior: Directiva del JEMAD (9.a, 9.d y 9.e).</li>
+                <li><strong>Cómo pedirlos:</strong> por tu cadena de mando, indicando el periodo de baja actividad en que quieres disfrutarlos. La unidad te contesta por escrito y, si los deniega o cambia, debe justificarlo (7.b y 10).</li>
+                <li><strong>Plazo:</strong> el mismo límite anual que las vacaciones y los asuntos propios (7.g).</li>
+            </ul>
+        </div>
         <p class="text-xs text-gray-400 mt-2">Fuente: Anexo I, Orientaciones para la aplicación en el Ejército de Tierra de la Orden DEF 1363/2016, en lo relativo a jornadas y horario de trabajo en las Fuerzas Armadas.</p>
         <button type="button" class="calc-enlace" onclick="irACalcDescansos()">🧮 Calcular mis días y llevar la cuenta del tope anual ❯</button>
     </div>
@@ -1713,7 +1727,7 @@
             }
             html += filaResultado('Descanso Adicional', 'preferentemente en baja actividad');
             notas.push('El DO es el día siguiente o, si cae en sábado, domingo o festivo, el primer día laborable. Marca la casilla si ese día es festivo en tu localidad (si hay varios festivos seguidos, cuenta tú el primer laborable).');
-            if (tipo === 'jic') notas.push('Si la JIC dura más de 24h, el DO es el primer día laborable tras su final.');
+            if (tipo === 'jic') notas.push('Si la JIC dura más de 24h, el DO es el primer día laborable tras su final.', 'Si la JIC forma parte de un ejercicio más largo, no genera DO: se aplica el DPP del ejercicio (Orient. ET 8.c).');
             descansoActual = { tipo: tipo, anio: anio, fecha: fecha ? aISO(fecha) : null, da: 1, dpp: 0 };
         } else {
             const dias = Math.max(0, Math.round(numero('cdDias', 0)));
@@ -1728,8 +1742,8 @@
                 html += filaResultado('Cuándo', t.campo === 'da' ? 'preferentemente en baja actividad' : 'al regreso o en baja actividad');
                 descansoActual = { tipo: tipo, anio: anio, fecha: fecha ? aISO(fecha) : null, da: t.campo === 'da' ? n : 0, dpp: t.campo === 'dpp' ? n : 0 };
             }
-            notas.push('Se cuentan bloques completos de ' + t.bloque + ' días. Confirma con tu unidad cómo computa los días sobrantes.');
-            if (tipo === 'extra') notas.push('Solo si la actividad es fuera de tu localidad de destino.');
+            notas.push('Se cuentan bloques completos de ' + t.bloque + ' días: el descanso es siempre en días enteros, sin fracciones (Orient. ET 7.e).');
+            if (tipo === 'extra') notas.push('Solo si la actividad es fuera de tu localidad de destino. En tu misma guarnición, el JEUCO puede concederte descanso como en la prolongación de jornada, sin contar en el tope (Orient. ET 8.f).');
         }
 
         if (descansoActual) {
