@@ -62,6 +62,10 @@
         .btn-herramienta { background: #1f2937; color: #fff; font-weight: 700; font-size: 0.85rem; border: 1px solid #4b5563; border-radius: 0.5rem; padding: 0.6rem 0.9rem; min-height: 44px; }
         .btn-subir { position: fixed; right: 14px; bottom: 16px; z-index: 40; width: 48px; height: 48px; border-radius: 9999px; border: 0; background: #ff8c00; color: #000; font-size: 1.4rem; font-weight: 800; box-shadow: 0 2px 10px rgba(0,0,0,0.5); }
         .btn-subir.hidden { display: none; }
+        .aviso-version { position: fixed; left: 12px; right: 12px; bottom: 76px; z-index: 60; display: flex; align-items: center; gap: 0.75rem; padding: 0.75rem 1rem; border-radius: 0.5rem; background: #1a1a2e; border: 2px solid #ff8c00; color: #fff; font-size: 0.9rem; box-shadow: 0 4px 14px rgba(0,0,0,0.6); }
+        .aviso-version.hidden { display: none; }
+        .aviso-version span { flex: 1; }
+        .aviso-version button { background: #6b21a8; color: #fff; font-weight: 700; padding: 0.5rem 0.9rem; border-radius: 0.375rem; }
         /* Cabecera compacta: en móviles con muesca se respeta la zona segura */
         #cabecera { padding-top: max(0.6rem, calc(env(safe-area-inset-top, 0px) + 0.2rem)); padding-bottom: 0.5rem; }
         #cabecera > .flex { margin-bottom: 0; }
@@ -169,6 +173,7 @@
 </main>
 
 <button type="button" id="btnSubir" class="btn-subir hidden" aria-label="Subir al principio">↑</button>
+<div id="avisoVersion" class="aviso-version hidden" role="status"><span>🔄 <strong>Versión nueva</strong> disponible. Pulsa Actualizar para cargarla.</span><button type="button" id="btnActualizar">Actualizar</button></div>
 
 <!-- ==================== PANTALLAS DE DETALLE ==================== -->
 
@@ -1917,9 +1922,20 @@
     // 8. INSTALACIÓN COMO APP (PWA): solo se activa publicada en un servidor https
     function registrarServiceWorker() {
         if ('serviceWorker' in navigator && location.protocol.indexOf('http') === 0) {
-            navigator.serviceWorker.register('sw.js').catch(function () {});
-            // Al instalarse una versión nueva, se actualiza el texto de la versión
-            navigator.serviceWorker.addEventListener('controllerchange', mostrarVersion);
+            // Si ya había una versión guardada, la llegada de otra es una actualización
+            const habiaVersion = !!navigator.serviceWorker.controller;
+            navigator.serviceWorker.register('sw.js').then(function (reg) {
+                // Al volver a la app, se comprueba si hay versión nueva
+                document.addEventListener('visibilitychange', function () {
+                    if (document.visibilityState === 'visible') reg.update().catch(function () {});
+                });
+            }).catch(function () {});
+            // Al instalarse una versión nueva, se actualiza el texto de la versión y se avisa
+            navigator.serviceWorker.addEventListener('controllerchange', function () {
+                mostrarVersion();
+                if (habiaVersion) document.getElementById('avisoVersion').classList.remove('hidden');
+            });
+            document.getElementById('btnActualizar').addEventListener('click', function () { location.reload(); });
         }
         mostrarVersion();
     }
