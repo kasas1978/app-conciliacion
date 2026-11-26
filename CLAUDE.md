@@ -1,4 +1,4 @@
-# Guía Conciliación - Academia AJ
+# Guía Conciliación
 
 PWA estática (sin servidor ni dependencias): `index.html` contiene toda la app,
 `sw.js` es el service worker y `manifest.webmanifest` los datos de instalación.
@@ -14,7 +14,7 @@ que se fusiona algo en `main`. Más detalles en `LEEME.txt`.
 - Si las pruebas fallan o el cambio es dudoso, no fusiones: explica el problema
   y pregunta.
 - Siempre que cambie el contenido de la app, sube la versión en `sw.js`
-  (`conciliacion-aj-vN` → `vN+1`). La versión se muestra al pie del menú
+  (`conciliacion-vN` → `vN+1`). La versión se muestra al pie del menú
   principal.
 - No borres ni cambies el archivo `CNAME`.
 

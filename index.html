@@ -1944,8 +1944,8 @@
     function mostrarVersion() {
         if (!('caches' in window)) return;
         caches.keys().then(function (claves) {
-            const version = claves.filter(k => k.indexOf('conciliacion-aj-') === 0)
-                .map(k => k.replace('conciliacion-aj-', ''))
+            const version = claves.filter(k => k.indexOf('conciliacion-') === 0)
+                .map(k => k.replace('conciliacion-', ''))
                 .sort((a, b) => parseInt(b.slice(1), 10) - parseInt(a.slice(1), 10))[0];
             const el = document.getElementById('versionApp');
             if (!version) { el.classList.add('hidden'); return; }

@@ -33,7 +33,7 @@ PASO 1 - SUBIR LOS ARCHIVOS A HOSTINGER
           -> quedará en https://tudominio.com/
        b) En una subcarpeta:      public_html/conciliacion/
           -> quedará en https://tudominio.com/conciliacion/
-     (Si en la raíz ya está la web de la academia, usa la opción b.)
+     (Si en la raíz ya está otra web, usa la opción b.)
   3. Sube el archivo .zip a esa carpeta y usa "Extraer".
      Comprueba que los archivos quedan DIRECTAMENTE en la carpeta
      (index.html, sw.js...), no dentro de otra subcarpeta "pwa".
@@ -56,7 +56,7 @@ PASO 3 - PWABUILDER (app para Google Play)
   1. Entra en https://www.pwabuilder.com y pega la dirección de la app.
   2. Revisa la puntuación (manifest, service worker y seguridad ya están preparados).
   3. Pulsa "Package for stores" > Android > Generate package.
-     Package ID recomendado: com.academiaaj.conciliacion (no se puede cambiar
+     Package ID recomendado: com.guiaconciliacion.app (no se puede cambiar
      después de publicar).
   4. Descarga el zip. GUARDA EN LUGAR SEGURO el archivo signing.keystore y las
      contraseñas: sin ellos no podrás publicar actualizaciones nunca más.
@@ -73,6 +73,6 @@ PASO 3 - PWABUILDER (app para Google Play)
 
 CUANDO ACTUALICES LA APP
   1. Sube el nuevo index.html a Hostinger (sustituyendo el anterior).
-  2. En sw.js cambia la versión: conciliacion-aj-v2 -> conciliacion-aj-v3, etc.
+  2. En sw.js cambia la versión: conciliacion-v2 -> conciliacion-v3, etc.
   3. Los móviles y la app de Android reciben el cambio solos; no hace falta
      volver a publicar en Google Play si solo cambias el contenido.
