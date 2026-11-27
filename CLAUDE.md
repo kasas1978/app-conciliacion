@@ -2,7 +2,7 @@
 
 PWA estática (sin servidor ni dependencias): `index.html` contiene toda la app,
 `sw.js` es el service worker y `manifest.webmanifest` los datos de instalación.
-Se publica en GitHub Pages (https://conciliacion.campusacademiaaj.com/) cada vez
+Se publica en GitHub Pages (https://conciliacion.appsfas.com/) cada vez
 que se fusiona algo en `main`. Más detalles en `LEEME.txt`.
 
 ## Instrucciones del propietario

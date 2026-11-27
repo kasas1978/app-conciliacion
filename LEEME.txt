@@ -2,11 +2,11 @@ GUÍA CONCILIACIÓN - PUBLICACIÓN Y APP CON PWABUILDER
 ====================================================
 
 PUBLICACIÓN ACTUAL (desde noviembre de 2026): GITHUB PAGES
-  Dirección: https://conciliacion.campusacademiaaj.com/
+  Dirección: https://conciliacion.appsfas.com/
   - Se publica sola cada vez que se sube un cambio a la rama main del
     repositorio de GitHub (tarda 1-2 minutos). No hay que subir nada a Hostinger.
   - El archivo CNAME indica a GitHub la dirección propia. No lo borres.
-  - En Hostinger (DNS de campusacademiaaj.com) debe existir un registro:
+  - En Hostinger (DNS de appsfas.com) debe existir un registro:
         Tipo CNAME · Nombre: conciliacion · Apunta a: kasas1978.github.io
   - .htaccess solo se usa si algún día vuelve a alojarse en Hostinger;
     GitHub Pages lo ignora.
