@@ -1929,6 +1929,9 @@
                 document.addEventListener('visibilitychange', function () {
                     if (document.visibilityState === 'visible') reg.update().catch(function () {});
                 });
+                // Con la app abierta, se comprueba cada minuto y al recuperar la conexión
+                setInterval(function () { reg.update().catch(function () {}); }, 60000);
+                window.addEventListener('online', function () { reg.update().catch(function () {}); });
             }).catch(function () {});
             // Al instalarse una versión nueva, se actualiza el texto de la versión y se avisa
             navigator.serviceWorker.addEventListener('controllerchange', function () {
