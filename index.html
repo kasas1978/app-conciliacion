@@ -1936,11 +1936,7 @@
             // Al instalarse una versión nueva, se actualiza el texto de la versión y se avisa
             navigator.serviceWorker.addEventListener('controllerchange', function () {
                 mostrarVersion();
-                if (habiaVersion) {
-                    document.getElementById('avisoVersion').classList.remove('hidden');
-                    // Recarga sola a los 4 segundos para que nadie se quede con la versión vieja
-                    setTimeout(function () { location.reload(); }, 4000);
-                }
+                if (habiaVersion) document.getElementById('avisoVersion').classList.remove('hidden');
             });
             document.getElementById('btnActualizar').addEventListener('click', function () { location.reload(); });
         }
